@@ -202,9 +202,8 @@
 <li>Create Ansible inventory file to include Spine and Leaf switches.</li>
 <li>By default Ansible has inventory file saved in location /etc/ansible/hosts.</li>
 <li>In this lab we will create hosts file in the working environment. This file is created from ansible host prompt using <code>cat</code> command.   <strong><em>Note:</em></strong> you should copy and paste the complete section below i.e., starting from <code>cat</code> till <code>EOF</code> (also shown in subsequent screenshot):<pre><code>cat &lt;&lt; EOF &gt;&gt; hosts
-</code></pre>
-<h1 id="define-global-variables-groups-and-host-variables">define global variables, groups and host variables</h1>
-<p>[all:vars]
+#define global variables, groups and host variables
+[all:vars]
 ansible_connection = ansible.netcommon.network_cli
 ansible_network_os = cisco.nxos.nxos
 ansible_user=admin
@@ -224,7 +223,8 @@ gather_fact=no
 198.18.134.50 eth1=172.21.140.10 gw=172.21.140.1
 198.18.134.52 eth1=172.21.140.11 gw=172.21.140.1
 198.18.134.53 eth1=172.21.141.11 gw=172.21.141.1
-    EOF</p>
+EOF
+</code></pre>
 </li>
 </ul>
 <p>Below screenshot shows the output of above command:</p>
