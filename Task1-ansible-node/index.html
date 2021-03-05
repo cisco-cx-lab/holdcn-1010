@@ -175,12 +175,14 @@
 </code></pre>
 <p>Below screenshot shows the execution of above command:</p>
 <p><img alt="" src="../pic/1-6-4-python-new.png" /></p>
-<p>As a final step, we are going to install Ansible on this RHEL. Once the install is initiated by using <code>pip install ansible==2.8.0b1</code> command (as shown below).  It may take few minutes for it to download and install.</p>
+<p>As a final step, we are going to install Ansible on this RHEL. Once the install is initiated by using <code>pip install ansible==2.10.6</code> command (as shown below).  It may take few minutes for it to download and install.</p>
 <pre><code>[root@rhel7-tools ~]# pip install ansible==2.10.6
 </code></pre>
 <p>Below screenshot shows the execution of above command:</p>
 <p><img alt="" src="../pic/1-6-5-ansible-new.png" /></p>
 <p>Starting from Ansible 2.9, plugins and modules for network platform are moved in to <strong>collection</strong>. To install NX-OS collection with Ansible Galaxy by using <code>ansible-galaxy collection install cisco.nxos</code></p>
+<pre><code>[root@rhel7-tools ~]# ansible-galaxy collection install cisco.nxos
+</code></pre>
 <p>Below screenshot shows the execution of above command:</p>
 <p><img alt="" src="pic/1-7-4-collection.png" /></p>
 <h4 id="step-8-verify-ansible">Step 8: Verify Ansible</h4>
