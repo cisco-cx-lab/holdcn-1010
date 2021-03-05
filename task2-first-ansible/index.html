@@ -123,11 +123,11 @@
 <ul>
 <li>
 <p>Open “Atom” text editor by double click the icon on desktop. Atom is the recommended text editor for this lab:</p>
-<p><img alt="" src="pic/2-1-atom.png" /></p>
+<p><img alt="" src="../pic/2-1-atom.png" /></p>
 </li>
 <li>
 <p>After opening ATOM, <strong>Click*<em> <code>No, Never</code> to the </em></strong>“Register as default atom:// URI handler”*** message as show below:</p>
-<p><img alt="" src="pic/2-1-2-atom.png" /></p>
+<p><img alt="" src="../pic/2-1-2-atom.png" /></p>
 </li>
 <li>
 <p>As an optional step: on ATOM you may close the Welcome, Welcome Guide, Telemetry Consent tabs.</p>
@@ -139,15 +139,15 @@
 <li>After opening ATOM, there should be a folder in the left pane named “EVPN-Ansible.”</li>
 <li>
 <p><strong>Right click</strong> the pre-configured project folder <code>EVPN-Ansible</code> and select <code>New File</code></p>
-<p><img alt="" src="pic/2-2-atom-folder.png" /></p>
+<p><img alt="" src="../pic/2-2-atom-folder.png" /></p>
 </li>
 <li>
 <p>Name the new file <code>vlan_provision.yml</code> and hit enter. This will create the new file:</p>
-<p><img alt="" src="pic/2-2-2-atom-vlan.png" /></p>
+<p><img alt="" src="../pic/2-2-2-atom-vlan.png" /></p>
 </li>
 <li>
 <p>Also, on the lower bar of the ATOM, verify that  file grammar of <strong>YAML</strong> is selected instead of default "<strong>Plain Text</strong>".  If <strong>YAML</strong> is not selected, then you should <strong>choose</strong> it from the listed options.</p>
-<p><img alt="" src="pic/2-2-3-atom-yaml.png" /></p>
+<p><img alt="" src="../pic/2-2-3-atom-yaml.png" /></p>
 </li>
 </ul>
 <hr />
@@ -208,13 +208,13 @@
 </li>
 <li>
 <p>Below screenshot shows how playbook will look:</p>
-<p><img alt="" src="pic/2-4-1.png" /></p>
+<p><img alt="" src="../pic/2-4-1.png" /></p>
 <p><strong>NOTE: Formatting is extremely important when working with Ansible. Ansible playbook would return errors if the spaces are not properly aligned or formatting is not correct
 </strong></p>
 </li>
 <li>
 <p><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</p>
-<p><img alt="" src="pic/2-4-2.png" /></p>
+<p><img alt="" src="../pic/2-4-2.png" /></p>
 <p><strong>NOTE: Once the Save button is pressed, then at the lower part of ATOM app, you will see message about connecting to Ansibe host (198.18.134.150) and saving the vlan_provision.yml file</strong></p>
 </li>
 </ul>
@@ -224,19 +224,19 @@
 *  Before executing the playbook, we will verify the leaf switch if it has any vlan configuration present on it.
 *  <strong>Login</strong> to leaf-3 switch using the Mputty client, or any leaf switch in previous playbook (remember <strong>hosts:</strong> variable in the file), and execute <code>show vlan brief</code> command.
     *  This command will show the vlans that currently exist on the leaf switch.  As you note from below screenshot, only the default VLAN (vlan number 1) is configured:</p>
-<p><img alt="" src="pic/2-5-1.png" /></p>
+<p><img alt="" src="../pic/2-5-1.png" /></p>
 <ul>
 <li>Now, go to mputty, login or launch a new ssh into Ansible node (198.18.134.150)</li>
 <li>
 <p>Use command <code>ansible-playbook vlan_provision.yml --tags "add vlans"</code> under folder "EVPN-Ansible" as shown below:</p>
 <pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook vlan_provision.yml --tags "add vlans"
 </code></pre>
-<p><img alt="" src="pic/2-5-2.png" /></p>
+<p><img alt="" src="../pic/2-5-2.png" /></p>
 <p><strong>Note: If the playbook fails first time, re-run the playbook again. Make sure to save all the changes in the playbook first before executing the playbook in Ansible.</strong></p>
 </li>
 <li>
 <p>After playbook is run successfully, login into leaf 3 again and check if vlan 140 and vlan 141 appears. There would also be a log message on the screen indicating a configuration change was pushed to the device:</p>
-<p><img alt="" src="pic/2-5-3.png" /></p>
+<p><img alt="" src="../pic/2-5-3.png" /></p>
 </li>
 </ul>
 <hr />
@@ -311,7 +311,7 @@
 </code></pre>
 
 <p>Below screeenshot shows the execution of above command:</p>
-<p><img alt="" src="pic/2-7-1-new.png" /></p>
+<p><img alt="" src="../pic/2-7-1-new.png" /></p>
 <ul>
 <li>After we push the configuration, <strong>login</strong> to the <strong>leaf-3</strong> switch, and check if the server facing port has the access vlan configured with the below command:</li>
 </ul>
@@ -319,9 +319,9 @@
 </code></pre>
 
 <p>The output of above command on leaf-3 or leaf-1 is shown in below screenshot:</p>
-<p><img alt="" src="pic/2-7-2.png" /></p>
+<p><img alt="" src="../pic/2-7-2.png" /></p>
 <p>The output of above command on leaf-4 is shown in below screenshot:</p>
-<p><img alt="" src="pic/2-7-3.png" /></p>
+<p><img alt="" src="../pic/2-7-3.png" /></p>
 <hr />
 <p><strong>Congratulation! You have created your first ansible playbook, automatically provisioned new VLANs and assigned port to new created VLANs using Ansible. Next we are going to create VXLAN Fabric using Ansible.
 </strong></p>

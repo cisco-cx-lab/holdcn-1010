@@ -140,22 +140,22 @@
 <ul>
 <li>Open Google Chrome and login Cisco DCNM (https://198.18.134.200) using username/password <strong>admin/C1sco12345</strong>  </li>
 </ul>
-<p><img alt="" src="pic/b-1-1.png" /></p>
+<p><img alt="" src="../pic/b-1-1.png" /></p>
 <h3 id="step-2">Step 2:</h3>
 <ul>
 <li>On the left side menu, click Configuration &gt; Deploy &gt; POAP</li>
 </ul>
-<p><img alt="" src="pic/b-2-1.png" /></p>
+<p><img alt="" src="../pic/b-2-1.png" /></p>
 <h3 id="step-3">Step 3:</h3>
 <ul>
 <li>Click DHCP Scopes on POAP page</li>
 </ul>
-<p><img alt="" src="pic/b-3-1.png" /></p>
+<p><img alt="" src="../pic/b-3-1.png" /></p>
 <h3 id="step-4">Step 4:</h3>
 <ul>
 <li>Click plus sign to add new DHCP scope, name it <strong>‘vxlan_evpn_leaf’</strong> add DCHP range <strong>‘198.18.4.100-198.18.4.104’</strong> as IP pool </li>
 </ul>
-<p><img alt="" src="pic/b-4-1.png" /></p>
+<p><img alt="" src="../pic/b-4-1.png" /></p>
 <h3 id="step-5">Step 5:</h3>
 <ul>
 <li>click OK to close the DHCP scope window</li>
@@ -168,12 +168,12 @@
 <ul>
 <li>Click Images and Configuration on the POAP page</li>
 </ul>
-<p><img alt="" src="pic/b-7-1.png" /></p>
+<p><img alt="" src="../pic/b-7-1.png" /></p>
 <h3 id="step-8">Step 8:</h3>
 <ul>
 <li>Check the <strong>Default_SCP_Repository</strong>, click <strong>File Browser</strong> to verify image nxos.7.0.3.I7.0.154.bin file is in the repository. </li>
 </ul>
-<p><img alt="" src="pic/b-8-1.png" /></p>
+<p><img alt="" src="../pic/b-8-1.png" /></p>
 <h3 id="step-9">Step 9:</h3>
 <ul>
 <li>Click left side menu Configure &gt; Deploy &gt; POAP</li>
@@ -182,22 +182,22 @@
 <ul>
 <li>Client ‘template’ under POAP Definitions</li>
 </ul>
-<p><img alt="" src="pic/b-10-1.png" /></p>
+<p><img alt="" src="../pic/b-10-1.png" /></p>
 <h3 id="step-11">Step 11:</h3>
 <ul>
 <li>Click import Template from the Templates page</li>
 </ul>
-<p><img alt="" src="pic/b-11-1.png" /></p>
+<p><img alt="" src="../pic/b-11-1.png" /></p>
 <h3 id="step-12">Step 12:</h3>
 <ul>
 <li>Locate simple_template.template file on desktop, and open the template. </li>
 </ul>
-<p><img alt="" src="pic/b-12-1.png" /></p>
+<p><img alt="" src="../pic/b-12-1.png" /></p>
 <h3 id="step-13">Step 13:</h3>
 <ul>
 <li>Save the template </li>
 </ul>
-<p><img alt="" src="pic/b-13-1.png" />   </p>
+<p><img alt="" src="../pic/b-13-1.png" />   </p>
 <h3 id="step-14">Step 14:</h3>
 <ul>
 <li>Click left side menu Configure &gt; Deploy &gt; POAP</li>
@@ -231,7 +231,7 @@
 </ul>
 </li>
 </ul>
-<p><img alt="" src="pic/b-17-2.png" /></p>
+<p><img alt="" src="../pic/b-17-2.png" /></p>
 <h3 id="step-18">Step 18:</h3>
 <ul>
 <li>Click <strong>Next</strong> and select <strong>simple_template</strong> from template drop down list, and fill in other information as below<ul>
@@ -259,17 +259,17 @@
 <ul>
 <li>Click <strong>Preview CLI</strong> as shown below</li>
 <li>Then click <strong>Finish</strong> 
-<img alt="" src="pic/b-20-1.png" /> </li>
+<img alt="" src="../pic/b-20-1.png" /> </li>
 </ul>
 <h3 id="step-21">Step 21:</h3>
 <ul>
 <li>select switch <strong>leaf-4</strong>, Click <strong>Write Erase and Reload</strong> to delte leaf-4 configuration and kick off the POAP process </li>
 </ul>
-<p><img alt="" src="pic/b-21-1.png" /> </p>
+<p><img alt="" src="../pic/b-21-1.png" /> </p>
 <ul>
 <li>Click <strong>Continue</strong> on the popup warning </li>
 </ul>
-<p><img alt="" src="pic/b-21-2.png" /></p>
+<p><img alt="" src="../pic/b-21-2.png" /></p>
 <h3 id="step-22">Step 22:</h3>
 <ul>
 <li>Connect to Leaf-4 console port from MTPuTTY, watch the POAP process</li>
@@ -277,7 +277,7 @@
 <hr />
 <p><font style= "background-color:  yellow">If the POAP scripts fail, verify the S/N in console. If the S/N doesn’t match what you configured in POAP definition, you need to configure new POAP definition matches the S/N.</font> </p>
 <hr />
-<p><img alt="" src="pic/b-22-1.png" /></p>
+<p><img alt="" src="../pic/b-22-1.png" /></p>
 <h3 id="step-23">Step 23:</h3>
 <ul>
 <li>Login leaf-4 to verify running configuration after POAP is completed</li>

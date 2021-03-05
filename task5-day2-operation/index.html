@@ -170,7 +170,7 @@
 [root@rhel7-tools LTRDCN-1572]# ls backup
 </code></pre>
 <p>You may further view the contents of the files under backup folder by using cat, less or more commands.  Below screenshot shows the output of above commands</p>
-<p><img alt="" src="pic/5-1-1.png" /></p>
+<p><img alt="" src="../pic/5-1-1.png" /></p>
 </li>
 </ul>
 <hr />
@@ -246,7 +246,7 @@
 <ul>
 <li>
 <p>Below screenshot shows the partial output of above command:</p>
-<p><img alt="" src="pic/5-2-1.png" /></p>
+<p><img alt="" src="../pic/5-2-1.png" /></p>
 </li>
 </ul>
 <p>Here is a log of execution of above command:</p>
@@ -376,7 +376,7 @@ PLAY RECAP *********************************************************************
 <ul>
 <li>
 <p>Below screenshot of the partial output of above command:</p>
-<p><img alt="" src="pic/5-2-2.png" /></p>
+<p><img alt="" src="../pic/5-2-2.png" /></p>
 </li>
 <li>
 <p>Below shows the complete log output of execution of above playbook command.   Verify the output for <strong>vne vni</strong> status, <strong>vne</strong> dynamic neighbors, type host <strong>mac+ip evpn route update for each L2VNI, l2fib</strong> information.</p>
@@ -564,7 +564,7 @@ Leaf-4#
 <ul>
 <li>
 <p>Below partial screenshot shows the output of above command:</p>
-<p><img alt="" src="pic/5-3-1.png" /></p>
+<p><img alt="" src="../pic/5-3-1.png" /></p>
 </li>
 <li>
 <p>Bring leaf-4 back to the baseline config by executing <code>ansible-playbook jinja2_fabric.yml --limit=198.18.4.104</code> command as shown below:</p>
@@ -576,7 +576,7 @@ Leaf-4#
 <ul>
 <li>
 <p>Below screenshot shows the output of above command.  You can also log into leaf-4 and verify that bgp configurations are back:</p>
-<p><img alt="" src="pic/5-3-2.png" /></p>
+<p><img alt="" src="../pic/5-3-2.png" /></p>
 </li>
 </ul>
 <hr />
@@ -628,7 +628,7 @@ Leaf-4#
 </li>
 <li>
 <p>Switch to <strong>“Atom”</strong> and sync the new created folders between Ansible node and remote desktop. Right click on project folder <strong>“LTRDCN-1572”</strong>, open <strong>“Remote Sync”</strong> select <strong>“Download Folder”</strong></p>
-<p><img alt="" src="pic/5-4-1.png" /></p>
+<p><img alt="" src="../pic/5-4-1.png" /></p>
 </li>
 <li>
 <p>Edit variable file <strong>main.yml</strong> for <strong>“vni_provision”</strong> role under “<strong>/root/LTRDCN-1572/roles/vni_provision/vars</strong>” and enter below data.  Make sure to click <code>File</code> and <code>Save</code> on Atom to push this to Ansible server:</p>
@@ -648,7 +648,7 @@ Leaf-4#
   - { vlan_id: 201, vni: 50201, ip_add: 172.21.201.1, mask: 24, vlan_name: L2-VNI-201-Tenant1, mcast: 239.0.0.201 }
 </code></pre>
 
-<p><img alt="" src="pic/5-4-2.png" /></p>
+<p><img alt="" src="../pic/5-4-2.png" /></p>
 <ul>
 <li>Edit playbook file <strong>main.yml</strong> for <strong>“vni_provision”</strong> role under <strong>“/root/LTRDCN-1572/roles/vni_provision/tasks”</strong> and enter below data.   Make sure to click <code>File</code> and <code>Save</code> on Atom to push this to Ansible server:</li>
 </ul>
@@ -704,7 +704,7 @@ Leaf-4#
 </code></pre>
 
 <p>this is shown in below screenshot:</p>
-<p><img alt="" src="pic/5-4-3.png" /></p>
+<p><img alt="" src="../pic/5-4-3.png" /></p>
 <ul>
 <li>Switch to “Atom”  create new playbook <strong>‘vni_provision.yml’</strong> under project folder <strong>LTRDCN-1572</strong> and enter below data.  Make sure to click <code>File</code> and <code>Save</code> on Atom to push this to Ansible server:</li>
 </ul>
@@ -722,7 +722,7 @@ Leaf-4#
 </code></pre>
 
 <p>Below screenshot shows the output of above command:</p>
-<p><img alt="" src="pic/5-4-4.png" /></p>
+<p><img alt="" src="../pic/5-4-4.png" /></p>
 <ul>
 <li>Switch to <strong>MTPutty</strong> and connect to <strong>leaf-4</strong> (SSH connection0, verify the change on leaf switches by issuing below command:</li>
 </ul>
@@ -730,7 +730,7 @@ Leaf-4#
 </code></pre>
 
 <p>Notice the new created L2VNI as shown in below screenshot:</p>
-<p><img alt="" src="pic/5-4-5-new.png" /></p>
+<p><img alt="" src="../pic/5-4-5-new.png" /></p>
 <h1 id="congratulation-you-have-completed-vxlan-fabric-lab">Congratulation! You have completed VXLAN Fabric Lab.</h1>
               
             </div>
