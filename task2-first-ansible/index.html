@@ -185,16 +185,15 @@
 </ul>
 </li>
 </ul>
-<pre><code class="YAML">      tasks:
-            - name: provision VLAN
-              cisco.nxos.nxos_vlans:
-                    config:
-                        - vlan_id: &quot;{{item}}&quot;
-                          state: active
-                with_items:
-                    - 140
-                    - 141
-                tags: add vlans
+<pre><code class="YAML">tasks:
+    - name: provision VLAN
+        cisco.nxos.nxos_vlans:
+            config:
+                - vlan_id: &quot;{{item}}&quot;
+                    state: active
+        with_items:
+            -  140
+            -  141
 
 </code></pre>
 
