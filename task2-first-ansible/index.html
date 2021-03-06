@@ -194,6 +194,7 @@
         with_items:
          -  140
          -  141
+        tags: add vlans
 </code></pre>
 
 <p>Note:</p>
@@ -248,27 +249,27 @@
 </ul>
 </li>
 </ul>
-<pre><code class="YAML">            - name: configure server facing port to L2
-                cisco.nxos.nxos_interfaces:
-                    config:
-                        - name: eth1/3
-                            mode: layer2
-            - name: configure VLAN for server port
-                when: (&quot;101&quot; in inventory_hostname) or (&quot;103&quot; in inventory_hostname)
-                cisco.nxos.nxos_l2_interfaces:
-                    config:
-                        - name: eth1/3
-                            access:
-                                vlan: 140
-                    state: overridden
-            - name: configure VLAN for server port
-                when: (&quot;102&quot; in inventory_hostname) or (&quot;104&quot; in inventory_hostname)
-                cisco.nxos.nxos_l2_interfaces:
-                    config:
-                        - name: eth1/3
-                            access:
-                                vlan: 141
-                    state: overridden
+<pre><code class="YAML">     - name: configure server facing port to L2
+       cisco.nxos.nxos_interfaces:
+         config:
+           - name: eth1/3
+             mode: layer2
+     - name: configure VLAN for server port
+       when: (&quot;101&quot; in inventory_hostname) or (&quot;103&quot; in inventory_hostname)
+       cisco.nxos.nxos_l2_interfaces:
+         config:
+           - name: eth1/3
+             access:
+               vlan: 140
+         state: overridden
+     - name: configure VLAN for server port
+       when: (&quot;102&quot; in inventory_hostname) or (&quot;104&quot; in inventory_hostname)
+       cisco.nxos.nxos_l2_interfaces:
+         config:
+           - name: eth1/3
+             access:
+               vlan: 141
+         state: overridden
 </code></pre>
 
 <ul>
