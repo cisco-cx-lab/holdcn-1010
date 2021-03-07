@@ -489,22 +489,19 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <hr />
 <pre><code class="YAML">#task to enable PIM for underlay multicast
        - name: Enable PIM
-         nxos_feature:
+         cisco.nxos.nxos_feature:
            feature: pim
-           provider: &quot;{{nxos_provider}}&quot;
            state: enabled
          tags: multicast
        - name: Configure PIM int
-         nxos_pim_interface:
+         cisco.nxos.nxos_pim_interface:
            interface: &quot;{{ item.interface }}&quot;
            sparse: true
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{L3_interfaces}}&quot;
          tags: multicast
        - name: Configure PIM RP
-         nxos_pim_rp_address:
+         cisco.nxos.nxos_pim_rp_address:
            rp_address: &quot;{{ rp_address }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: multicast
 </code></pre>
 
@@ -563,31 +560,31 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <td>Manages features on Nexus switches</td>
 </tr>
 <tr>
-<td>nxos_evpn_global</td>
+<td>cisco.nxos.nxos_evpn_global</td>
 <td>Handles EVPN control plane for VXLAN</td>
 </tr>
 <tr>
-<td>nxos_vlan</td>
+<td>cisco.nxos.nxos_vlan</td>
 <td>Manages VLAN resources and attributes</td>
 </tr>
 <tr>
-<td>nxos_vrf</td>
+<td>cisco.nxos.nxos_vrf</td>
 <td>Manages global VRF configuration</td>
 </tr>
 <tr>
-<td>nxos_vrf_af</td>
+<td>cisco.nxos.nxos_vrf_af</td>
 <td>Manages VRF address falimily</td>
 </tr>
 <tr>
-<td>nxos_overlay_global</td>
+<td>cisco.nxos.nxos_overlay_global</td>
 <td>Configuration anycast gateway MAC</td>
 </tr>
 <tr>
-<td>nxos_vxlan_vtep</td>
+<td>cisco.nxos.nxos_vxlan_vtep</td>
 <td>Manages VXLAN Network Virtualization Endpoint</td>
 </tr>
 <tr>
-<td>nxos_vxlan_vtep_vni</td>
+<td>cisco.nxos.nxos_vxlan_vtep_vni</td>
 <td>Creates Virtual Network Identifier member</td>
 </tr>
 </tbody>
@@ -598,18 +595,17 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code class="YAML">#task to configure vxlan fabric
        - name: Enable VXLAN Feature
-         nxos_feature:
+         cisco.nxos.nxos_feature:
             feature: &quot;{{item}}&quot;
-            provider: &quot;{{nxos_provider }}&quot;
+            # provider: &quot;{{cisco.nxos.nxos_provider }}&quot;
             state: enabled
          with_items:
             - nv overlay
             - vn-segment-vlan-based
          tags: vxlan
        - name: Enable NV Overlay
-         nxos_evpn_global:
+         cisco.nxos.nxos_evpn_global:
            nv_overlay_evpn: true
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: vxlan
 </code></pre>
 
@@ -624,111 +620,100 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code class="YAML">#task to configure VXLAN fabric
        - name: Enable VXLAN Feature
-         nxos_feature:
+         cisco.nxos.nxos_feature:
            feature: &quot;{{ item }}&quot;
-           provider: &quot;{{nxos_provider}}&quot;
            state: enabled
          with_items:
           - nv overlay
           - vn-segment-vlan-based
          tags: vxlan
        - name: Enable NV Overlay
-         nxos_evpn_global:
+         cisco.nxos.nxos_evpn_global:
            nv_overlay_evpn: true
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: vxlan
        - name: Configure VLAN to VNI
-         nxos_vlan:
+         cisco.nxos.nxos_vlan:
            vlan_id: &quot;{{ item.vlan_id }}&quot;
            mapped_vni: &quot;{{ item.vni }}&quot;
            name: &quot;{{ item.vlan_name }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items:
          - &quot;{{ L2VNI }}&quot;
          - &quot;{{ L3VNI }}&quot;
          tags: vxlan
        - name: Configure Tenant VRF
-         nxos_vrf:
+         cisco.nxos.nxos_vrf:
            vrf: Tenant-1
            rd:  auto
            vni: &quot;{{ L3VNI[0].vni }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: vxlan
        - name: Configure VRF AF
-         nxos_vrf_af:
+         cisco.nxos.nxos_vrf_af:
            vrf: Tenant-1
            route_target_both_auto_evpn: true
            afi: ipv4
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: vxlan
        - name: Configure Anycast GW
-         nxos_overlay_global:
+         cisco.nxos.nxos_overlay_global:
            anycast_gateway_mac: 0000.2222.3333
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: vxlan
        - name: Configure L2VNI
-         nxos_interface:
+         cisco.nxos.nxos_interface:
            interface: vlan&quot;{{ item.vlan_id }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
          tags: vxlan
        - name: Configure L3VNI
-         nxos_interface:
-           interface: vlan&quot;{{ L3VNI[0].vlan_id }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_interfaces:
+           config:
+             - name: vlan&quot;{{ L3VNI[0].vlan_id }}&quot;
          tags: vxlan
        - name: Assign interface to Tenant VRF
-         nxos_vrf_interface:
+         cisco.nxos.nxos_vrf_interface:
            vrf: Tenant-1
            interface: &quot;vlan{{ item.vlan_id }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items:
          - &quot;{{ L2VNI }}&quot;
          - &quot;{{ L3VNI }}&quot;
          tags: vxlan
        - name: Configure SVI IP
-         nxos_ip_interface:
-           interface: &quot;vlan{{ item.vlan_id }}&quot;
-           addr: &quot;{{ item.ip_add }}&quot;
-           mask: &quot;{{ item.mask }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_l3_interfaces:
+           config:
+             - name: &quot;vlan{{ item.vlan_id }}&quot;
+               ipv4:
+                 - address: &quot;{{ item.ip_add }}/{{ item.mask }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
          tags: vxlan
        - name: Configure L2VNI SVI
-         nxos_interface:
-           interface: vlan&quot;{{ item.vlan_id }}&quot;
-           fabric_forwarding_anycast_gateway: true
-           provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_interfaces:
+           config:
+             - name:  vlan&quot;{{ item.vlan_id }}&quot;
+               fabric_forwarding_anycast_gateway: true
          with_items: &quot;{{ L2VNI }}&quot;
          tags: vxlan
        - name: Configure L3VNI SVI
-         nxos_interface:
-           interface: vlan&quot;{{ L3VNI[0].vlan_id }}&quot;
-           ip_forward: enable
-           provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_interfaces:
+           config:
+             - name: vlan&quot;{{ L3VNI[0].vlan_id }}&quot;
+               ip_forward: &quot;true&quot;
          tags: vxlan
        - name: Configure VTEP Tunnel
-         nxos_vxlan_vtep:
+         cisco.nxos.nxos_vxlan_vtep:
             interface: nve1
             shutdown: &quot;false&quot;
             source_interface: Loopback1
             host_reachability: &quot;true&quot;
-            provider: &quot;{{ nxos_provider }}&quot;
          tags: vxlan
        - name: Configure L2VNI to VTEP
-         nxos_vxlan_vtep_vni:
+         cisco.nxos.nxos_vxlan_vtep_vni:
             interface: nve1
             vni: &quot;{{ item.vni }}&quot;
             multicast_group: &quot;{{ item.mcast }}&quot;
-            provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
          tags: vxlan
        - name: Configure L3VNI to VTEP
-         nxos_vxlan_vtep_vni:
+         cisco.nxos.nxos_vxlan_vtep_vni:
             interface: nve1
             vni: &quot;{{ L3VNI[0].vni }}&quot;
             assoc_vrf: true
-            provider: &quot;{{ nxos_provider }}&quot;
          tags: vxlan
 </code></pre>
 
@@ -759,7 +744,8 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <ul>
 <li>
 <p>Below screenshot show partial output of above command:</p>
-<p><img alt="" src="../pic/4-5-1.png" /></p>
+<p><img alt="" src="pic/4-5-1a.png" />
+<img alt="" src="pic/4-5-1b.png" /></p>
 </li>
 <li>
 <p>After finishing this task: <strong>login</strong> to any <strong>leaf</strong> switch (on MTPutty) to verify VXLAN configuration and the VNI by issuing the command:  </p>
@@ -768,10 +754,8 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <pre><code>show nve vni
 </code></pre>
 
-<pre><code>Below screenshot shows the output of above command from Leaf-3:
-
-![](pic/4-5-2.png)
-</code></pre>
+<p>Below screenshot shows the output of above command from Leaf-3:</p>
+<p><img alt="" src="../pic/4-5-2.png" /></p>
 <hr />
 <h3 id="step-10-configure-evpn-using-ansible">Step 10: Configure EVPN using Ansible</h3>
 <p>In this section, we will be configuring BGP EVPN on leaf and spine switches. The NXOS modules we will be using in this section are:</p>
