@@ -290,42 +290,37 @@
 # tasks file for leaf
 #task to configure bgp neighbor to all spine switches
        - name: Enable BGP
-         nxos_feature:
+         cisco.nxos.nxos_feature:
            feature: bgp
-           provider: &quot;{{nxos_provider}}&quot;
            state: enabled
          tags: bgp
        - name: Configure BGP AS
-         nxos_bgp:
+         cisco.nxos.nxos_bgp:
            asn: &quot;{{ asn }}&quot;
            router_id: &quot;{{ router_id }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
            state: present
          tags: bgp
        - name: Configure BGP AF
-         nxos_bgp_af:
+         cisco.nxos.nxos_bgp_af:
            asn: &quot;{{ asn }}&quot;
            afi: ipv4
            safi: unicast
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: bgp
        - name: Configure iBGP neighbors
-         nxos_bgp_neighbor:
+         cisco.nxos.nxos_bgp_neighbor:
            asn: &quot;{{ asn }}&quot;
            neighbor: &quot;{{ item.neighbor }}&quot;
            remote_as: &quot;{{ item.remote_as }}&quot;
            update_source: &quot;{{ item.update_source }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ bgp_neighbors }}&quot;
          tags: bgp
        - name: Configure iBGP neighbor AF
-         nxos_bgp_neighbor_af:
+         cisco.nxos.nxos_bgp_neighbor_af:
            asn: &quot;{{ asn }}&quot;
            neighbor: &quot;{{ item.neighbor }}&quot;
            afi: ipv4
            safi: unicast
            send_community: both
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ bgp_neighbors }}&quot;
          tags: bgp
 </code></pre>
@@ -341,13 +336,6 @@
 </ul>
 <pre><code class="YAML">---
 # vars file for leaf
-  nxos_provider:
-    username: &quot;{{ user }}&quot;
-    password: &quot;{{ pwd }}&quot;
-    transport: nxapi
-    timeout: 30
-    host: &quot;{{ inventory_hostname }}&quot;
-
   asn: 65000
 
   bgp_neighbors:
@@ -395,20 +383,28 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </thead>
 <tbody>
 <tr>
-<td>nxos_pim_rp_address</td>
+<td>cisco.nxos.nxos_pim_rp_address</td>
 <td>Manage static RP configuration</td>
 </tr>
 <tr>
-<td>nxos_config</td>
+<td>cisco.nxos.nxos_config</td>
 <td>Manage NXOS arbitrary configuration command</td>
 </tr>
 <tr>
-<td>nxos_interface_ospf</td>
+<td>cisco.nxos.nxos_interface_ospf</td>
 <td>Manage configuration OSPF interface instance</td>
 </tr>
 <tr>
-<td>nxos_interface</td>
+<td>cisco.nxos.nxos_interfaces</td>
 <td>Manage physical attribute of interface</td>
+</tr>
+<tr>
+<td>cisco.nxos.nxos_l3_interfaces</td>
+<td>Manage L3 interfaces on Cisco NXOS network devices</td>
+</tr>
+<tr>
+<td>cisco.nxos.nxos_pim_interface</td>
+<td>Manages PIM interface configuration</td>
 </tr>
 </tbody>
 </table>
@@ -418,53 +414,48 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <li>Use <strong>“Atom”</strong> to edit the <strong>“main.yml”</strong> file. Open up the project folder <strong>“EVPN-Ansible”</strong> and open <strong>“main.yml”</strong> file under <strong>“roles/spine/tasks/”</strong> and save the below tasks at the end the file:</li>
 </ul>
 <hr />
-<p><font style=background-color:yellow>Note: It is recommended to write your playbook and learn from mistakes, but file is also available in the box folder if you prefer to reuse.</font></p>
+<p><font style=background-color:yellow>Note: It is recommended to write your playbook and learn from mistakes, but file is also available in the playbook folder if you prefer to reuse.</font></p>
 <hr />
 <pre><code class="YAML">#task to enable pim and configure anycast rp for underlay multicast
        - name: Enable PIM
-         nxos_feature:
+         cisco.nxos.nxos_feature:
            feature: pim
-           provider: &quot;{{nxos_provider}}&quot;
            state: enabled
          tags: multicast
        - name: Configure Anycast RP interfce
-         nxos_interface:
-           interface: loopback1
-           provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_interfaces:
+           config:
+             - name: loopback1
+               enabled: true
          tags: multicast
        - name: Configure IP Address on New LP1
-         nxos_ip_interface:
-            interface: loopback1
-            version: v4
-            addr: &quot;{{ loopback1 }}&quot;
-            mask: 32
-            provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_l3_interfaces:
+           config:
+             - name: loopback1
+               ipv4:
+                - address: &quot;{{ loopback1 }}/32&quot;
          tags: multicast
        - name: Configure PIM int
-         nxos_pim_interface:
+         cisco.nxos.nxos_pim_interface:
            interface: &quot;{{ item.interface }}&quot;
            sparse: true
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{L3_interfaces}}&quot;
          tags: multicast
        - name: Enable OSPF on New LP1
-         nxos_interface_ospf:
+         cisco.nxos.nxos_interface_ospf:
            interface: loopback1
            ospf: 1
            area: 0
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: multicast
        - name: Configure PIM RP
-         nxos_pim_rp_address:
+         cisco.nxos.nxos_pim_rp_address:
            rp_address: &quot;{{ loopback1 }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: multicast
        - name: Configure Anycast RP
-         nxos_config:
+         cisco.nxos.nxos_config:
            lines:
             - &quot;ip pim anycast-rp {{ loopback1 }} {{ s1_loopback }}&quot;
             - &quot;ip pim anycast-rp {{ loopback1 }} {{ s2_loopback }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: multicast
 </code></pre>
 
@@ -494,7 +485,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <li>use <strong>“Atom”</strong> to edit the <strong>“main.yml”</strong> file. Open up the project folder <strong>“EVPN-Ansible”</strong> and add below content at the end of <strong>“main.yml”</strong> file under <strong>“roles/leaf/tasks/”</strong>.   On Atom, Make sure to click <strong>File-&gt;Save</strong> after entering the below data in this file so it is pushed to Ansible server:</li>
 </ul>
 <hr />
-<p><font style=background-color:yellow>Note: It is recommended to write your playbook and learn from mistakes, but file is also available in the box folder if you prefer to reuse.</font></p>
+<p><font style=background-color:yellow>Note: It is recommended to write your playbook and learn from mistakes, but file is also available in the playbook folder if you prefer to reuse.</font></p>
 <hr />
 <pre><code class="YAML">#task to enable PIM for underlay multicast
        - name: Enable PIM
