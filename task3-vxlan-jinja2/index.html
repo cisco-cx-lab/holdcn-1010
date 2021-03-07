@@ -479,27 +479,20 @@
 <p>Now that the file/folder appears properly on ATOM, go ahead and proceed with further steps:</p>
 <ul>
 <li>
-<p>To reduce the typo, you can download jina2 template from the <strong>box</strong> folder leaf.j2. Below is the link to this folder:</p>
+<p>To reduce the typo, you can move (or copy) <strong>leaf.j2</strong> file from local <strong>playbook</strong> folder</p>
+<p><code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>playbook</code> --&gt; <code>roles</code> --&gt; <code>jinja2_leaf</code> --&gt; `templates``</p>
 </li>
+</ul>
+<p>and paste the file in the projects folder</p>
+<pre><code>`TFTP_Data (\\AD1) (X:)` --&gt;  `EVPN-Ansible` --&gt; `roles` --&gt; `jinja2_leaf` --&gt; `templates`
+
+as shown below:
+
+![](pic/3-10-2.png)
+</code></pre>
+<ul>
 <li>
-<p>To reduce the typo, you can download jina2 template from the <strong>box</strong> folder leaf.j2. Below is the link to this folder:</p>
-<p><a href="http://cs.co/EVPN-Ansible">http://cs.co/EVPN-Ansible</a></p>
-</li>
-<li>
-<p>The file would be under <code>EVPN-Ansible/roles/jinja2_leaf/templates/leaf.j2</code> (link below) as shown in below screenshot:</p>
-<p><a href="https://cisco.app.box.com/folder/44981518497">https://cisco.app.box.com/folder/44981518497
-</a></p>
-<p><img alt="" src="../pic/3-10-1.png" /></p>
-</li>
-<li>
-<p>After the file is downloaded to the PC (on your RDP session), go to the downloads folder. Move (or copy) the file from the downloads folder and paste the file in the projects folder</p>
-<p><code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>EVPN-Ansible</code> --&gt; <code>roles</code> --&gt; <code>jinja2_leaf</code> --&gt; <code>templates</code></p>
-<p>as shown below:</p>
-<p><img alt="" src="../pic/3-10-2.png" /></p>
-</li>
-<li>
-<p>On ATOM, go to <code>File</code> then <code>Open File…</code> and browse to this <code>leaf.j2</code> that was just saved in <code>X:\EVPN-Ansible\roles\jinja2_leaf\templates</code> as shown below screenshots:
-    <img alt="" src="../pic/3-10-3.png" /></p>
+<p>On ATOM, go to <code>File</code> then <code>Open File…</code> and browse to this <code>leaf.j2</code> that was just saved in <code>X:\EVPN-Ansible\roles\jinja2_leaf\templates</code> as shown below screenshot:</p>
 <p><img alt="" src="../pic/3-10-4.png" /></p>
 </li>
 <li>
