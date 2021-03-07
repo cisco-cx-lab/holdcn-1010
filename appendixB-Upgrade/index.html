@@ -118,16 +118,16 @@
               
                 <h1 id="appendix-b-software-compliance-check-and-remediation">Appendix B: Software compliance check and remediation</h1>
 <p>In this section, we will run software version compliance check using Ansible. For fabric switch that is not running on standard software version, we will perform software upgrade and bring all fabric switches into the standard version.  </p>
-<p>In this playbook, we will use “nxos_facts” to find the software version on each fabric switch. Then we will compare with standard software version, 7.0(3)I7(4) in this lab. For fabric switch that is not running on standard version, the playbook will upgrade and reboot the switch. </p>
+<p>In this playbook, we will use “nxos_facts” to find the software version on each fabric switch. Then we will compare with standard software version, 7.0(3)I7(4) in this lab. For fabric switch that is not running on standard version, the playbook will upgrade and reboot the switch.</p>
 <p>The playbook will use <strong>“nxos_file_copy”</strong> module to copy image from remote repository to bootflash. A bug fix is introduced in Ansible 2.9 and upward to avoid timeout issue when coping large file, so fist we will upgrade ansible to 2.9.1</p>
 <ul>
 <li>On Ansible server execute command <code>pip install ansible==2.9.1</code> to upgrade Ansible to 2.9.1 release:</li>
 </ul>
-<pre><code>[root@rhel7-tools LTRDCN-1572]# pip install ansible==2.9.1
+<pre><code>[root@rhel7-tools EVPN-Ansible]# pip install ansible==2.9.1
 </code></pre>
 
 <ul>
-<li>On <strong>Atom,</strong> open up the project folder <code>LTRDCN-1572</code> and create new file under this folder (“LTRDCN-1572”). Name the new file <strong>“code_upgrade.yml”.</strong> and add below content (you may copy and paste):</li>
+<li>On <strong>Atom,</strong> open up the project folder <code>EVPN-Ansible</code> and create new file under this folder (“EVPN-Ansible”). Name the new file <strong>“code_upgrade.yml”.</strong> and add below content (you may copy and paste):</li>
 </ul>
 <pre><code class="yaml">---
 #Appendix code upgrade
@@ -188,9 +188,9 @@
 </code></pre>
 
 <ul>
-<li>On the Ansible server, run the playbook for software compliance check and code upgrade by issuing the <code>ansible-playbook code_upgrade.yml</code> command as shown below: </li>
+<li>On the Ansible server, run the playbook for software compliance check and code upgrade by issuing the <code>ansible-playbook code_upgrade.yml</code> command as shown below:</li>
 </ul>
-<pre><code>[root@rhel7-tools LTRDCN-1572]# ansible-playbook code_upgrade.yml
+<pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook code_upgrade.yml
 </code></pre>
 
 <hr />

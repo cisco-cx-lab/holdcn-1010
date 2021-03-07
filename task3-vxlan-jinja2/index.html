@@ -301,22 +301,17 @@
 <p><img alt="" src="../pic/3-5-1.png" /></p>
 <p>Now that the file/folder appears properly on ATOM, go ahead and proceed with further steps:</p>
 <ul>
-<li>
-<p>To reduce the typo, you can download jina2 template from the <strong>box</strong> folder spine.j2. Below is the link to this folder:</p>
-<p><a href="http://cs.co/EVPN-Ansible">http://cs.co/EVPN-Ansible</a></p>
-</li>
-<li>
-<p>The file would be under <code>EVPN-Ansible/roles/jinja2_spine/templates/spine.j2</code> (link below) as shown in below screenshot:</p>
-<p><a href="https://cisco.app.box.com/folder/44981931157">https://cisco.app.box.com/folder/44981931157
-</a></p>
-<p><img alt="" src="../pic/3-5-2.png" /></p>
-</li>
-<li>
-<p>After the file is downloaded to the PC (on your RDP session), go to the downloads folder. Move (or copy) the file from the downloads folder and paste the file in the projects folder</p>
-<p><code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>LTRDC-1572</code> --&gt; <code>roles</code> --&gt; <code>jinja2_spine</code> --&gt; <code>templates</code></p>
-<p>as shown below:</p>
-<p><img alt="" src="../pic/3-5-3.png" /></p>
-</li>
+<li>To reduce the typo, you can move (or copy) <strong>spine.j2</strong> file from local <strong>playbook</strong> folder
+    <code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>playbook</code> --&gt; <code>roles</code> --&gt; <code>jinja2_spine</code> --&gt; `templates``</li>
+</ul>
+<p>and paste the file in the projects folder</p>
+<pre><code>`TFTP_Data (\\AD1) (X:)` --&gt;  `EVPN-Ansible` --&gt; `roles` --&gt; `jinja2_spine` --&gt; `templates`
+
+as shown below:
+
+![](pic/3-5-3.png)
+</code></pre>
+<ul>
 <li>
 <p>After moving/copying this file to above folder location, open this file on ATOM.  You do this by going to <code>File</code> then <code>Open File…</code> on ATOM, and browse to this <code>spine.j2</code> file that was just saved in <code>X:\EVPN-Ansible\roles\jinja2_spine\templates</code> as shown below:
     <img alt="" src="../pic/3-5-4.png" /></p>
@@ -372,7 +367,7 @@
 <p>The playbook will also push the configuration file to Spine-2 switches.</p>
 <ul>
 <li>
-<p>Run the ansible playbook by going to folder LTRDC-1572 and executing the below commands:</p>
+<p>Run the ansible playbook by going to folder EVPN-Ansible and executing the below commands:</p>
 <pre><code>[root@rhel7-tools roles]# cd ~/EVPN-Ansible/
 [root@rhel7-tools EVPN-Ansible]# ansible-playbook jinja2_fabric.yml
 </code></pre>
@@ -395,7 +390,7 @@
 <h3 id="step-8-modify-playbook-for-leaf">Step 8: Modify playbook for Leaf</h3>
 <p>In this section, we will use Jina2 template and Ansible to provision the VXLAN Fabric on leaf-4.   We are going to add jinja2_leaf this time to the already created playbook in step 2.</p>
 <ul>
-<li>Switch to “<strong>Atom</strong>”, click on the folder <code>LTRDDCN-1572</code>, edit the existing playbook <code>jinja2_fabric.yml</code> file for a role for leaf (named jinja2_leaf).  Add the below content at the end of existing file (i.e., add the below content to existing content in this file (do not overwrite existing content):</li>
+<li>Switch to “<strong>Atom</strong>”, click on the folder <code>EVPN-Ansible</code>, edit the existing playbook <code>jinja2_fabric.yml</code> file for a role for leaf (named jinja2_leaf).  Add the below content at the end of existing file (i.e., add the below content to existing content in this file (do not overwrite existing content):</li>
 </ul>
 <pre><code class="YAML">- hosts: jinja2_leaf
   connection: local
@@ -468,7 +463,7 @@
 <ol>
 <li>
 <p>On MTputty, change Directory to folder EVPN-Ansible on Ansible server (198.18.134.150) using below command:</p>
-<pre><code>cd ~/LTRDC-1572
+<pre><code>cd ~/EVPN-Ansible
 </code></pre>
 </li>
 <li>
@@ -498,7 +493,7 @@
 </li>
 <li>
 <p>After the file is downloaded to the PC (on your RDP session), go to the downloads folder. Move (or copy) the file from the downloads folder and paste the file in the projects folder</p>
-<p><code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>LTRDC-1572</code> --&gt; <code>roles</code> --&gt; <code>jinja2_leaf</code> --&gt; <code>templates</code></p>
+<p><code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>EVPN-Ansible</code> --&gt; <code>roles</code> --&gt; <code>jinja2_leaf</code> --&gt; <code>templates</code></p>
 <p>as shown below:</p>
 <p><img alt="" src="../pic/3-10-2.png" /></p>
 </li>
