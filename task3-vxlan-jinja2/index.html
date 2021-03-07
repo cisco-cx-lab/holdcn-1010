@@ -124,7 +124,7 @@
 <ul>
 <li>On the Ansible node, install jinja2 using <code>pip install jinja2</code> command.  If it is already installed, we will get the message “requirement is satisfied”:</li>
 </ul>
-<pre><code>        [root@rhel7-tools ~]# pip install jinja2
+<pre><code>        [root@rhel7-tools EVPN-Ansible]# pip install jinja2
 </code></pre>
 
 <p>Below screenshot shows the output of above command:</p>
@@ -151,9 +151,9 @@
 </li>
 </ul>
 <pre><code class="YAML">---
-  - hosts: jinja2_spine
-    connection: local
-    roles:
+- hosts: jinja2_spine
+  connection: local
+  roles:
     - jinja2_spine
 
 </code></pre>
@@ -218,7 +218,7 @@
 </code></pre>
 </li>
 <li>
-<p>Switch to “<strong>Atom</strong>” and sync the new created folders between Ansible node and Remote desktop by pressing <strong>Right Click</strong> on the folder <code>LTRDDCN-1572</code>, then open <code>Remote Sync</code> select <code>Download Folder</code> as shown below:</p>
+<p>Switch to “<strong>Atom</strong>” and sync the new created folders between Ansible node and Remote desktop by pressing <strong>Right Click</strong> on the folder <code>EVPN-Ansible</code>, then open <code>Remote Sync</code> select <code>Download Folder</code> as shown below:</p>
 </li>
 </ul>
 <p><img alt="" src="../pic/3-3-3.png" /></p>
