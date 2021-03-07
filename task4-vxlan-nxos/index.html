@@ -203,9 +203,6 @@
 <pre><code class="YAML">---
 # tasks file for spine
 #task to configure bgp neighbor to all leaf switches
----
-# tasks file for spine
-#task to configure bgp neighbor to all leaf switches
        - name: Enable BGP
          cisco.nxos.nxos_feature:
            feature: bgp
@@ -272,13 +269,6 @@
 </ul>
 <pre><code class="YAML">---
 # vars file for spine
-  nxos_provider:
-    username: &quot;{{ user }}&quot;
-    password: &quot;{{ pwd }}&quot;
-    transport: nxapi
-    timeout: 30
-    host: &quot;{{ inventory_hostname }}&quot;
-
   asn: 65000
 
   bgp_neighbors:
