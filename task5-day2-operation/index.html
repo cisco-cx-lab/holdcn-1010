@@ -145,21 +145,11 @@
 </li>
 </ul>
 <pre><code class="YAML">---
-  - hosts: spine,leaf,jinja2_leaf,jinja2_spine
-    connection: local
-    vars:
-      ios_provider:
-        transport: nxapi
-        username: &quot;{{ user }}&quot;
-        password: &quot;{{ pwd }}&quot;
-        host: &quot;{{ inventory_hostname }}&quot;
-    tasks:
+   - hosts: spine,leaf,jinja2_leaf,jinja2_spine
+     tasks:
       - name: save running
-        nxos_config:
-           provider: &quot;{{ ios_provider }}&quot;
-           backup: yes
-           timeout: 20
-
+        cisco.nxos.nxos_config:
+          backup: yes
 </code></pre>
 
 <ul>
@@ -195,17 +185,10 @@
   - hosts: leaf, jinja2_leaf
     connection: local
     gather_facts: false
-    vars:
-      ios_provider:
-         username: &quot;{{ user }}&quot;
-         password: &quot;{{ pwd }}&quot;
-         timeout: 30
-         host: &quot;{{ inventory_hostname }}&quot;
     tasks:
       - name: verify underlay
         register: underlay_output
-        ios_command:
-          provider: &quot;{{ ios_provider }}&quot;
+        cisco.nxos.nxos_command:
           commands:
             - show ip ospf neighbors
             - show ip bgp sum
@@ -213,11 +196,9 @@
         tags: underlay
       - debug: var=underlay_output.stdout_lines
         tags: underlay
-#      - copy: content=&quot;{{underlay_output | to_nice_json}}&quot; dest=&quot;verify/{{inventory_hostname}}_underlay&quot;
       - name: Verify Overlay
         register: overlay_output
-        ios_command:
-          provider: &quot;{{ ios_provider }}&quot;
+        cisco.nxos.nxos_command:
           commands:
             - show nve vni
             - show nve peer
@@ -250,49 +231,43 @@
 </li>
 </ul>
 <p>Here is a log of execution of above command:</p>
-<pre><code> [root@rhel7-tools EVPN-Ansible]# ansible-playbook verify_fabric.yml --tags &quot;underlay&quot;
+<pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook verify_fabric.yml --tags &quot;underlay&quot;
 
-PLAY [leaf, jinja2_leaf] ************************************************************************************************************************************************
+PLAY [leaf, jinja2_leaf] *********************************************************************************************************************************************************************************************
 
-TASK [verify underlay] **************************************************************************************************************************************************
- [WARNING]: argument username has been deprecated and will be removed in a future version
-
- [WARNING]: argument timeout has been deprecated and will be removed in a future version
-
- [WARNING]: argument password has been deprecated and will be removed in a future version
-
+TASK [verify underlay] ***********************************************************************************************************************************************************************************************
 ok: [198.18.4.101]
 ok: [198.18.4.104]
 ok: [198.18.4.103]
 
-TASK [debug] ************************************************************************************************************************************************************
+TASK [debug] *********************************************************************************************************************************************************************************************************
 ok: [198.18.4.101] =&gt; {
     &quot;underlay_output.stdout_lines&quot;: [
         [
             &quot;OSPF Process ID 1 VRF default&quot;,
             &quot; Total number of neighbors: 2&quot;,
             &quot; Neighbor ID     Pri State            Up Time  Address         Interface&quot;,
-            &quot; 192.168.0.6       1 FULL/ -          1d03h    10.0.0.21       Eth1/1 &quot;,
-            &quot; 192.168.0.7       1 FULL/ -          1d03h    10.0.128.5      Eth1/2&quot;
+            &quot; 192.168.0.6       1 FULL/ -          01:27:12 10.0.0.21       Eth1/1 &quot;,
+            &quot; 192.168.0.7       1 FULL/ -          01:27:12 10.0.128.5      Eth1/2&quot;
         ],
         [
             &quot;BGP summary information for VRF default, address family IPv4 Unicast&quot;,
             &quot;BGP router identifier 192.168.0.8, local AS number 65000&quot;,
-            &quot;BGP table version is 8, IPv4 Unicast config peers 2, capable peers 2&quot;,
+            &quot;BGP table version is 6, IPv4 Unicast config peers 2, capable peers 2&quot;,
             &quot;0 network entries and 0 paths using 0 bytes of memory&quot;,
             &quot;BGP attribute entries [0/0], BGP AS path entries [0/0]&quot;,
-            &quot;BGP community entries [0/0], BGP clusterlist entries [0/0]&quot;,
+            &quot;BGP community entries [0/0], BGP clusterlist entries [4/16]&quot;,
             &quot;&quot;,
             &quot;Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd&quot;,
-            &quot;192.168.0.6     4 65000      52      54        8    0    0 00:24:18 0         &quot;,
-            &quot;192.168.0.7     4 65000      47      49        8    0    0 00:30:45 0&quot;
+            &quot;192.168.0.6     4 65000     161     106        6    0    0 01:23:17 0         &quot;,
+            &quot;192.168.0.7     4 65000     161     106        6    0    0 01:23:15 0&quot;
         ],
         [
             &quot;PIM Neighbor Status for VRF \&quot;default\&quot;&quot;,
-            &quot;Neighbor        Interface            Uptime    Expires   DR       Bidir-  BFD&quot;,
-            &quot;                                                         Priority Capable State&quot;,
-            &quot;10.0.0.21       Ethernet1/1          00:15:51  00:01:43  1        yes     n/a&quot;,
-            &quot;10.0.128.5      Ethernet1/2          00:15:45  00:01:23  1        yes     n/a&quot;
+            &quot;Neighbor        Interface            Uptime    Expires   DR       Bidir-  BFD    ECMP Redirect&quot;,
+            &quot;                                                         Priority Capable State     Capable&quot;,
+            &quot;10.0.0.21       Ethernet1/1          01:23:08  00:01:35  1        yes     n/a     no&quot;,
+            &quot;10.0.128.5      Ethernet1/2          01:23:07  00:01:31  1        yes     n/a     no&quot;
         ]
     ]
 }
@@ -302,27 +277,27 @@ ok: [198.18.4.104] =&gt; {
             &quot;OSPF Process ID 1 VRF default&quot;,
             &quot; Total number of neighbors: 2&quot;,
             &quot; Neighbor ID     Pri State            Up Time  Address         Interface&quot;,
-            &quot; 192.168.0.6       1 FULL/ -          10:20:18 10.0.128.1      Eth1/1 &quot;,
-            &quot; 192.168.0.7       1 FULL/ -          10:20:15 10.0.128.17     Eth1/2&quot;
+            &quot; 192.168.0.6       1 FULL/ -          1d04h    10.0.128.1      Eth1/1 &quot;,
+            &quot; 192.168.0.7       1 FULL/ -          1d04h    10.0.128.17     Eth1/2&quot;
         ],
         [
             &quot;BGP summary information for VRF default, address family IPv4 Unicast&quot;,
             &quot;BGP router identifier 192.168.0.11, local AS number 65000&quot;,
-            &quot;BGP table version is 4, IPv4 Unicast config peers 2, capable peers 2&quot;,
+            &quot;BGP table version is 5, IPv4 Unicast config peers 2, capable peers 2&quot;,
             &quot;0 network entries and 0 paths using 0 bytes of memory&quot;,
             &quot;BGP attribute entries [0/0], BGP AS path entries [0/0]&quot;,
-            &quot;BGP community entries [0/0], BGP clusterlist entries [0/0]&quot;,
+            &quot;BGP community entries [0/0], BGP clusterlist entries [4/16]&quot;,
             &quot;&quot;,
             &quot;Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd&quot;,
-            &quot;192.168.0.6     4 65000      32      32        4    0    0 00:24:03 0         &quot;,
-            &quot;192.168.0.7     4 65000      34      34        4    0    0 00:25:16 0&quot;
+            &quot;192.168.0.6     4 65000     672     662        5    0    0 07:03:12 0         &quot;,
+            &quot;192.168.0.7     4 65000    1441    1433        5    0    0 22:36:01 0&quot;
         ],
         [
             &quot;PIM Neighbor Status for VRF \&quot;default\&quot;&quot;,
-            &quot;Neighbor        Interface            Uptime    Expires   DR       Bidir-  BFD&quot;,
-            &quot;                                                         Priority Capable State&quot;,
-            &quot;10.0.128.1      Ethernet1/1          00:19:15  00:01:31  1        yes     n/a&quot;,
-            &quot;10.0.128.17     Ethernet1/2          00:25:43  00:01:18  1        yes     n/a&quot;
+            &quot;Neighbor        Interface            Uptime    Expires   DR       Bidir-  BFD    ECMP Redirect&quot;,
+            &quot;                                                         Priority Capable State     Capable&quot;,
+            &quot;10.0.128.1      Ethernet1/1          08:51:43  00:01:28  1        yes     n/a     no&quot;,
+            &quot;10.0.128.17     Ethernet1/2          22:36:23  00:01:23  1        yes     n/a     no&quot;
         ]
     ]
 }
@@ -332,35 +307,36 @@ ok: [198.18.4.103] =&gt; {
             &quot;OSPF Process ID 1 VRF default&quot;,
             &quot; Total number of neighbors: 2&quot;,
             &quot; Neighbor ID     Pri State            Up Time  Address         Interface&quot;,
-            &quot; 192.168.0.6       1 FULL/ -          1d03h    10.0.0.29       Eth1/1 &quot;,
-            &quot; 192.168.0.7       1 FULL/ -          1d03h    10.0.128.13     Eth1/2&quot;
+            &quot; 192.168.0.6       1 FULL/ -          01:27:11 10.0.0.29       Eth1/1 &quot;,
+            &quot; 192.168.0.7       1 FULL/ -          01:27:10 10.0.128.13     Eth1/2&quot;
         ],
         [
             &quot;BGP summary information for VRF default, address family IPv4 Unicast&quot;,
             &quot;BGP router identifier 192.168.0.10, local AS number 65000&quot;,
-            &quot;BGP table version is 8, IPv4 Unicast config peers 2, capable peers 2&quot;,
+            &quot;BGP table version is 6, IPv4 Unicast config peers 2, capable peers 2&quot;,
             &quot;0 network entries and 0 paths using 0 bytes of memory&quot;,
             &quot;BGP attribute entries [0/0], BGP AS path entries [0/0]&quot;,
-            &quot;BGP community entries [0/0], BGP clusterlist entries [0/0]&quot;,
+            &quot;BGP community entries [0/0], BGP clusterlist entries [4/16]&quot;,
             &quot;&quot;,
             &quot;Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd&quot;,
-            &quot;192.168.0.6     4 65000      52      53        8    0    0 00:24:19 0         &quot;,
-            &quot;192.168.0.7     4 65000      47      49        8    0    0 00:30:47 0&quot;
+            &quot;192.168.0.6     4 65000     148     107        6    0    0 01:23:17 0         &quot;,
+            &quot;192.168.0.7     4 65000     150     107        6    0    0 01:23:17 0&quot;
         ],
         [
             &quot;PIM Neighbor Status for VRF \&quot;default\&quot;&quot;,
-            &quot;Neighbor        Interface            Uptime    Expires   DR       Bidir-  BFD&quot;,
-            &quot;                                                         Priority Capable State&quot;,
-            &quot;10.0.0.29       Ethernet1/1          00:15:53  00:01:23  1        yes     n/a&quot;,
-            &quot;10.0.128.13     Ethernet1/2          00:15:47  00:01:37  1        yes     n/a&quot;
+            &quot;Neighbor        Interface            Uptime    Expires   DR       Bidir-  BFD    ECMP Redirect&quot;,
+            &quot;                                                         Priority Capable State     Capable&quot;,
+            &quot;10.0.0.29       Ethernet1/1          01:23:09  00:01:37  1        yes     n/a     no&quot;,
+            &quot;10.0.128.13     Ethernet1/2          01:23:08  00:01:23  1        yes     n/a     no&quot;
         ]
     ]
 }
 
-PLAY RECAP **************************************************************************************************************************************************************
-198.18.4.101               : ok=2    changed=0    unreachable=0    failed=0
-198.18.4.103               : ok=2    changed=0    unreachable=0    failed=0
-198.18.4.104               : ok=2    changed=0    unreachable=0    failed=0
+PLAY RECAP ***********************************************************************************************************************************************************************************************************
+198.18.4.101               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+198.18.4.103               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+198.18.4.104               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
 </code></pre>
 
 <p>Next:</p>
@@ -384,20 +360,215 @@ PLAY RECAP *********************************************************************
 </ul>
 <pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook verify_fabric.yml --tags &quot;overlay&quot;
 
-PLAY [leaf, jinja2_leaf] **********************************************************************************************************************************************
+PLAY [leaf, jinja2_leaf] *********************************************************************************************************************************************************************************************
 
-TASK [Verify Overlay] *************************************************************************************************************************************************
- [WARNING]: argument username has been deprecated and will be removed in a future version
-
- [WARNING]: argument timeout has been deprecated and will be removed in a future version
-
- [WARNING]: argument password has been deprecated and will be removed in a future version
-
-ok: [198.18.4.101]
+TASK [Verify Overlay] ************************************************************************************************************************************************************************************************
 ok: [198.18.4.104]
 ok: [198.18.4.103]
+ok: [198.18.4.101]
 
-TASK [debug] **********************************************************************************************************************************************************
+TASK [debug] *********************************************************************************************************************************************************************************************************
+ok: [198.18.4.104] =&gt; {
+    &quot;overlay_output.stdout_lines&quot;: [
+        [
+            &quot;Codes: CP - Control Plane        DP - Data Plane          &quot;,
+            &quot;       UC - Unconfigured         SA - Suppress ARP        &quot;,
+            &quot;       SU - Suppress Unknown Unicast&quot;,
+            &quot; &quot;,
+            &quot;Interface VNI      Multicast-group   State Mode Type [BD/VRF]      Flags&quot;,
+            &quot;--------- -------- ----------------- ----- ---- ------------------ -----&quot;,
+            &quot;nve1      50140    239.0.0.140       Up    CP   L2 [140]                  &quot;,
+            &quot;nve1      50141    239.0.0.141       Up    CP   L2 [141]                  &quot;,
+            &quot;nve1      50999    n/a               Up    CP   L3 [Tenant-1]&quot;
+        ],
+        [
+            &quot;Interface Peer-IP          State LearnType Uptime   Router-Mac       &quot;,
+            &quot;--------- ---------------  ----- --------- -------- -----------------&quot;,
+            &quot;nve1      192.168.0.18     Up    CP        01:07:55 000c.2997.621c   &quot;,
+            &quot;nve1      192.168.0.110    Up    CP        01:23:17 000c.2939.f53f&quot;
+        ],
+        [
+            &quot;IP Route Table for VRF \&quot;Tenant-1\&quot;&quot;,
+            &quot;'*' denotes best ucast next-hop&quot;,
+            &quot;'**' denotes best mcast next-hop&quot;,
+            &quot;'[x/y]' denotes [preference/metric]&quot;,
+            &quot;'%&lt;string&gt;' in via output denotes VRF &lt;string&gt;&quot;,
+            &quot;&quot;,
+            &quot;172.21.140.0/24, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.140.1, Vlan140, [0/0], 22:39:01, direct&quot;,
+            &quot;172.21.140.1/32, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.140.1, Vlan140, [0/0], 22:39:01, local&quot;,
+            &quot;172.21.140.10/32, ubest/mbest: 1/0&quot;,
+            &quot;    *via 192.168.0.18%default, [200/0], 01:07:52, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a80012 encap: VXLAN&quot;,
+            &quot; &quot;,
+            &quot;172.21.140.11/32, ubest/mbest: 1/0&quot;,
+            &quot;    *via 192.168.0.110%default, [200/0], 01:23:18, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a8006e encap: VXLAN&quot;,
+            &quot; &quot;,
+            &quot;172.21.141.0/24, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.141.1, Vlan141, [0/0], 22:38:59, direct&quot;,
+            &quot;172.21.141.1/32, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.141.1, Vlan141, [0/0], 22:38:59, local&quot;,
+            &quot;172.21.141.11/32, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.141.11, Vlan141, [190/0], 07:04:08, hmm&quot;
+        ],
+        [
+            &quot;BGP routing table information for VRF default, address family L2VPN EVPN&quot;,
+            &quot;BGP table version is 458, Local Router ID is 192.168.0.11&quot;,
+            &quot;Status: s-suppressed, x-deleted, S-stale, d-dampened, h-history, *-valid, &gt;-best&quot;,
+            &quot;Path type: i-internal, e-external, c-confed, l-local, a-aggregate, r-redist, I-injected&quot;,
+            &quot;Origin codes: i - IGP, e - EGP, ? - incomplete, | - multipath, &amp; - backup&quot;,
+            &quot;&quot;,
+            &quot;   Network            Next Hop            Metric     LocPrf     Weight Path&quot;,
+            &quot;Route Distinguisher: 192.168.0.8:32907&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;* i                   192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[32]:[172.21.140.10]/272&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;* i                   192.168.0.18                      100          0 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.10:32907&quot;,
+            &quot;* i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.110                     100          0 i&quot;,
+            &quot;*&gt;i                   192.168.0.110                     100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[32]:[172.21.140.11]/272&quot;,
+            &quot;                      192.168.0.110                     100          0 i&quot;,
+            &quot;* i                   192.168.0.110                     100          0 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.11:32907    (L2VNI 50140)&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.110                     100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[32]:[172.21.140.10]/272&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[32]:[172.21.140.11]/272&quot;,
+            &quot;                      192.168.0.110                     100          0 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.11:32908    (L2VNI 50141)&quot;,
+            &quot;*&gt;l[2]:[0]:[0]:[48]:[000c.2979.f00d]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.111                     100      32768 i&quot;,
+            &quot;*&gt;l[2]:[0]:[0]:[48]:[000c.2979.f00d]:[32]:[172.21.141.11]/272&quot;,
+            &quot;                      192.168.0.111                     100      32768 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.11:3    (L3VNI 50999)&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[32]:[172.21.140.10]/272&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[32]:[172.21.140.11]/272&quot;,
+            &quot;                      192.168.0.110                     100          0 i&quot;
+        ],
+        [
+            &quot;Flags -(Rmac):Router MAC (Stt):Static (L):Local (R):Remote (V):vPC link &quot;,
+            &quot;(Dup):Duplicate (Spl):Split (Rcv):Recv(D):Del Pending (S):Stale (C):Clear&quot;,
+            &quot;(Ps):Peer Sync (Ro):Re-Originated &quot;,
+            &quot;Topology    Mac Address    Prod   Flags         Seq No     Host IP         Next-Hops      &quot;,
+            &quot;----------- -------------- ------ ---------- --------------- ---------------&quot;,
+            &quot;140         0050.56a0.7630 BGP    --            0          172.21.140.10  192.168.0.18   &quot;,
+            &quot;140         0050.56a0.b5d1 BGP    --            0          172.21.140.11  192.168.0.110  &quot;,
+            &quot;141         000c.2979.f00d HMM    --            0          172.21.141.11  Local&quot;
+        ]
+    ]
+}
+ok: [198.18.4.103] =&gt; {
+    &quot;overlay_output.stdout_lines&quot;: [
+        [
+            &quot;Codes: CP - Control Plane        DP - Data Plane          &quot;,
+            &quot;       UC - Unconfigured         SA - Suppress ARP        &quot;,
+            &quot;       SU - Suppress Unknown Unicast&quot;,
+            &quot; &quot;,
+            &quot;Interface VNI      Multicast-group   State Mode Type [BD/VRF]      Flags&quot;,
+            &quot;--------- -------- ----------------- ----- ---- ------------------ -----&quot;,
+            &quot;nve1      50140    239.0.0.140       Up    CP   L2 [140]                  &quot;,
+            &quot;nve1      50141    239.0.0.141       Up    CP   L2 [141]                  &quot;,
+            &quot;nve1      50999    n/a               Up    CP   L3 [Tenant-1]&quot;
+        ],
+        [
+            &quot;Interface Peer-IP          State LearnType Uptime   Router-Mac       &quot;,
+            &quot;--------- ---------------  ----- --------- -------- -----------------&quot;,
+            &quot;nve1      192.168.0.18     Up    CP        01:07:55 000c.2997.621c   &quot;,
+            &quot;nve1      192.168.0.111    Up    CP        01:23:20 000c.2951.176f&quot;
+        ],
+        [
+            &quot;IP Route Table for VRF \&quot;Tenant-1\&quot;&quot;,
+            &quot;'*' denotes best ucast next-hop&quot;,
+            &quot;'**' denotes best mcast next-hop&quot;,
+            &quot;'[x/y]' denotes [preference/metric]&quot;,
+            &quot;'%&lt;string&gt;' in via output denotes VRF &lt;string&gt;&quot;,
+            &quot;&quot;,
+            &quot;172.21.140.0/24, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.140.1, Vlan140, [0/0], 01:24:28, direct&quot;,
+            &quot;172.21.140.1/32, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.140.1, Vlan140, [0/0], 01:24:28, local&quot;,
+            &quot;172.21.140.10/32, ubest/mbest: 1/0&quot;,
+            &quot;    *via 192.168.0.18%default, [200/0], 01:07:53, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a80012 encap: VXLAN&quot;,
+            &quot; &quot;,
+            &quot;172.21.140.11/32, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.140.11, Vlan140, [190/0], 01:23:18, hmm&quot;,
+            &quot;172.21.141.0/24, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.141.1, Vlan141, [0/0], 01:24:25, direct&quot;,
+            &quot;172.21.141.1/32, ubest/mbest: 1/0, attached&quot;,
+            &quot;    *via 172.21.141.1, Vlan141, [0/0], 01:24:25, local&quot;,
+            &quot;172.21.141.11/32, ubest/mbest: 1/0&quot;,
+            &quot;    *via 192.168.0.111%default, [200/0], 01:23:20, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a8006f encap: VXLAN&quot;
+        ],
+        [
+            &quot;BGP routing table information for VRF default, address family L2VPN EVPN&quot;,
+            &quot;BGP table version is 195, Local Router ID is 192.168.0.10&quot;,
+            &quot;Status: s-suppressed, x-deleted, S-stale, d-dampened, h-history, *-valid, &gt;-best&quot;,
+            &quot;Path type: i-internal, e-external, c-confed, l-local, a-aggregate, r-redist, I-injected&quot;,
+            &quot;Origin codes: i - IGP, e - EGP, ? - incomplete, | - multipath, &amp; - backup&quot;,
+            &quot;&quot;,
+            &quot;   Network            Next Hop            Metric     LocPrf     Weight Path&quot;,
+            &quot;Route Distinguisher: 192.168.0.8:32907&quot;,
+            &quot;* i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;i                   192.168.0.18                      100          0 i&quot;,
+            &quot;* i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[32]:[172.21.140.10]/272&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;i                   192.168.0.18                      100          0 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.10:32907    (L2VNI 50140)&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;l[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.110                     100      32768 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[32]:[172.21.140.10]/272&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;,
+            &quot;*&gt;l[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[32]:[172.21.140.11]/272&quot;,
+            &quot;                      192.168.0.110                     100      32768 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.10:32908    (L2VNI 50141)&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.111                     100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[32]:[172.21.141.11]/272&quot;,
+            &quot;                      192.168.0.111                     100          0 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.11:32908&quot;,
+            &quot;* i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.111                     100          0 i&quot;,
+            &quot;*&gt;i                   192.168.0.111                     100          0 i&quot;,
+            &quot;* i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[32]:[172.21.141.11]/272&quot;,
+            &quot;                      192.168.0.111                     100          0 i&quot;,
+            &quot;*&gt;i                   192.168.0.111                     100          0 i&quot;,
+            &quot;&quot;,
+            &quot;Route Distinguisher: 192.168.0.10:3    (L3VNI 50999)&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[32]:[172.21.141.11]/272&quot;,
+            &quot;                      192.168.0.111                     100          0 i&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.7630]:[32]:[172.21.140.10]/272&quot;,
+            &quot;                      192.168.0.18                      100          0 i&quot;
+        ],
+        [
+            &quot;Flags -(Rmac):Router MAC (Stt):Static (L):Local (R):Remote (V):vPC link &quot;,
+            &quot;(Dup):Duplicate (Spl):Split (Rcv):Recv(D):Del Pending (S):Stale (C):Clear&quot;,
+            &quot;(Ps):Peer Sync (Ro):Re-Originated &quot;,
+            &quot;Topology    Mac Address    Prod   Flags         Seq No     Host IP         Next-Hops      &quot;,
+            &quot;----------- -------------- ------ ---------- --------------- ---------------&quot;,
+            &quot;140         0050.56a0.7630 BGP    --            0          172.21.140.10  192.168.0.18   &quot;,
+            &quot;140         0050.56a0.b5d1 HMM    --            0          172.21.140.11  Local          &quot;,
+            &quot;141         000c.2979.f00d BGP    --            0          172.21.141.11  192.168.0.111&quot;
+        ]
+    ]
+}
 ok: [198.18.4.101] =&gt; {
     &quot;overlay_output.stdout_lines&quot;: [
         [
@@ -414,8 +585,8 @@ ok: [198.18.4.101] =&gt; {
         [
             &quot;Interface Peer-IP          State LearnType Uptime   Router-Mac       &quot;,
             &quot;--------- ---------------  ----- --------- -------- -----------------&quot;,
-            &quot;nve1      192.168.0.110    Up    CP        00:03:19 000c.2939.f53f   &quot;,
-            &quot;nve1      192.168.0.111    Up    CP        00:01:12 000c.2951.176f&quot;
+            &quot;nve1      192.168.0.110    Up    CP        01:07:59 000c.2939.f53f   &quot;,
+            &quot;nve1      192.168.0.111    Up    CP        01:07:59 000c.2951.176f&quot;
         ],
         [
             &quot;IP Route Table for VRF \&quot;Tenant-1\&quot;&quot;,
@@ -425,30 +596,32 @@ ok: [198.18.4.101] =&gt; {
             &quot;'%&lt;string&gt;' in via output denotes VRF &lt;string&gt;&quot;,
             &quot;&quot;,
             &quot;172.21.140.0/24, ubest/mbest: 1/0, attached&quot;,
-            &quot;    *via 172.21.140.1, Vlan140, [0/0], 00:05:39, direct&quot;,
+            &quot;    *via 172.21.140.1, Vlan140, [0/0], 01:24:29, direct&quot;,
             &quot;172.21.140.1/32, ubest/mbest: 1/0, attached&quot;,
-            &quot;    *via 172.21.140.1, Vlan140, [0/0], 00:05:39, local&quot;,
+            &quot;    *via 172.21.140.1, Vlan140, [0/0], 01:24:29, local&quot;,
             &quot;172.21.140.10/32, ubest/mbest: 1/0, attached&quot;,
-            &quot;    *via 172.21.140.10, Vlan140, [190/0], 00:05:33, hmm&quot;,
+            &quot;    *via 172.21.140.10, Vlan140, [190/0], 01:24:18, hmm&quot;,
             &quot;172.21.140.11/32, ubest/mbest: 1/0&quot;,
-            &quot;    *via 192.168.0.110%default, [200/0], 00:01:50, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a8006e encap: VXLAN&quot;,
+            &quot;    *via 192.168.0.110%default, [200/0], 01:07:51, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a8006e encap: VXLAN&quot;,
             &quot; &quot;,
             &quot;172.21.141.0/24, ubest/mbest: 1/0, attached&quot;,
-            &quot;    *via 172.21.141.1, Vlan141, [0/0], 00:05:38, direct&quot;,
+            &quot;    *via 172.21.141.1, Vlan141, [0/0], 01:24:25, direct&quot;,
             &quot;172.21.141.1/32, ubest/mbest: 1/0, attached&quot;,
-            &quot;    *via 172.21.141.1, Vlan141, [0/0], 00:05:38, local&quot;,
+            &quot;    *via 172.21.141.1, Vlan141, [0/0], 01:24:25, local&quot;,
             &quot;172.21.141.11/32, ubest/mbest: 1/0&quot;,
-            &quot;    *via 192.168.0.111%default, [200/0], 00:01:12, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a8006f encap: VXLAN&quot;
+            &quot;    *via 192.168.0.111%default, [200/0], 01:07:51, bgp-65000, internal, tag 65000 (evpn) segid: 50999 tunnelid: 0xc0a8006f encap: VXLAN&quot;
         ],
         [
             &quot;BGP routing table information for VRF default, address family L2VPN EVPN&quot;,
-            &quot;BGP table version is 35, Local Router ID is 192.168.0.8&quot;,
+            &quot;BGP table version is 210, Local Router ID is 192.168.0.8&quot;,
             &quot;Status: s-suppressed, x-deleted, S-stale, d-dampened, h-history, *-valid, &gt;-best&quot;,
             &quot;Path type: i-internal, e-external, c-confed, l-local, a-aggregate, r-redist, I-injected&quot;,
             &quot;Origin codes: i - IGP, e - EGP, ? - incomplete, | - multipath, &amp; - backup&quot;,
             &quot;&quot;,
             &quot;   Network            Next Hop            Metric     LocPrf     Weight Path&quot;,
             &quot;Route Distinguisher: 192.168.0.8:32907    (L2VNI 50140)&quot;,
+            &quot;*&gt;l[2]:[0]:[0]:[48]:[0050.56a0.7630]:[0]:[0.0.0.0]/216&quot;,
+            &quot;                      192.168.0.18                      100      32768 i&quot;,
             &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[0]:[0.0.0.0]/216&quot;,
             &quot;                      192.168.0.110                     100          0 i&quot;,
             &quot;*&gt;l[2]:[0]:[0]:[48]:[0050.56a0.7630]:[32]:[172.21.140.10]/272&quot;,
@@ -466,17 +639,17 @@ ok: [198.18.4.101] =&gt; {
             &quot;* i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[0]:[0.0.0.0]/216&quot;,
             &quot;                      192.168.0.110                     100          0 i&quot;,
             &quot;*&gt;i                   192.168.0.110                     100          0 i&quot;,
-            &quot;*&gt;i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[32]:[172.21.140.11]/272&quot;,
+            &quot;* i[2]:[0]:[0]:[48]:[0050.56a0.b5d1]:[32]:[172.21.140.11]/272&quot;,
             &quot;                      192.168.0.110                     100          0 i&quot;,
-            &quot;* i                   192.168.0.110                     100          0 i&quot;,
+            &quot;*&gt;i                   192.168.0.110                     100          0 i&quot;,
             &quot;&quot;,
             &quot;Route Distinguisher: 192.168.0.11:32908&quot;,
-            &quot;* i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[0]:[0.0.0.0]/216&quot;,
-            &quot;                      192.168.0.111                     100          0 i&quot;,
-            &quot;*&gt;i                   192.168.0.111                     100          0 i&quot;,
-            &quot;*&gt;i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[32]:[172.21.141.11]/272&quot;,
+            &quot;*&gt;i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[0]:[0.0.0.0]/216&quot;,
             &quot;                      192.168.0.111                     100          0 i&quot;,
             &quot;* i                   192.168.0.111                     100          0 i&quot;,
+            &quot;* i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[32]:[172.21.141.11]/272&quot;,
+            &quot;                      192.168.0.111                     100          0 i&quot;,
+            &quot;*&gt;i                   192.168.0.111                     100          0 i&quot;,
             &quot;&quot;,
             &quot;Route Distinguisher: 192.168.0.8:3    (L3VNI 50999)&quot;,
             &quot;*&gt;i[2]:[0]:[0]:[48]:[000c.2979.f00d]:[32]:[172.21.141.11]/272&quot;,
@@ -492,10 +665,17 @@ ok: [198.18.4.101] =&gt; {
             &quot;----------- -------------- ------ ---------- --------------- ---------------&quot;,
             &quot;140         0050.56a0.7630 HMM    --            0          172.21.140.10  Local          &quot;,
             &quot;140         0050.56a0.b5d1 BGP    --            0          172.21.140.11  192.168.0.110  &quot;,
-            &quot;141         000c.2979.f00d BGP    --            1          172.21.141.11  192.168.0.111&quot;
+            &quot;141         000c.2979.f00d BGP    --            0          172.21.141.11  192.168.0.111&quot;
         ]
     ]
 }
+
+PLAY RECAP ***********************************************************************************************************************************************************************************************************
+198.18.4.101               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+198.18.4.103               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+198.18.4.104               : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+[root@rhel7-tools EVPN-Ansible]#
 </code></pre>
 
 <hr />
@@ -507,22 +687,12 @@ ok: [198.18.4.101] =&gt; {
 </ul>
 <pre><code class="YAML">---
    - hosts: jinja2_leaf,leaf,jinja2_spine,spine
-     connection: local
-     gather_facts: flase
      vars:
-       nxos_provider:
-          transport: nxapi
-          username: &quot;{{ user }}&quot;
-          password: &quot;{{ pwd }}&quot;
-          timeout: 30
-          host: &quot;{{ inventory_hostname }}&quot;
-       filename: &quot;{{ lookup('pipe', 'ls backup/{{ inventory_hostname}}_config.*')}}&quot;
+      filename: &quot;{{ lookup('pipe', 'ls backup/{{ inventory_hostname}}_config.*')}}&quot;
      tasks:
        - name: configure compliance
          register: diff_config
-#         when: (inventory_hostname in groups['leaf']) or (inventory_hostname in groups['jinja2_leaf'])
-         nxos_config:
-           provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_config:
            diff_against: intended
            intended_config: &quot;{{ lookup('file', '{{filename}}') }}&quot;
 </code></pre>
@@ -636,13 +806,6 @@ Leaf-4#
 </ul>
 <pre><code class="YAML">---
 # vars file for vni_provision
-  nxos_provider:
-    username: &quot;{{ user }}&quot;
-    password: &quot;{{ pwd }}&quot;
-    transport: nxapi
-    timeout: 30
-    host: &quot;{{ inventory_hostname }}&quot;
-
   L2VNI:
   - { vlan_id: 200, vni: 50200, ip_add: 172.21.200.1, mask: 24, vlan_name: L2-VNI-200-Tenant1, mcast: 239.0.0.200 }
   - { vlan_id: 201, vni: 50201, ip_add: 172.21.201.1, mask: 24, vlan_name: L2-VNI-201-Tenant1, mcast: 239.0.0.201 }
@@ -655,52 +818,47 @@ Leaf-4#
 <pre><code class="YAML">---
 # tasks file for vni_provision
        - name: Configure VLAN to VNI
-         nxos_vlan:
+         cisco.nxos.nxos_vlan:
            vlan_id: &quot;{{ item.vlan_id }}&quot;
            mapped_vni: &quot;{{ item.vni }}&quot;
            name: &quot;{{ item.vlan_name }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items:
          - &quot;{{ L2VNI }}&quot;
        - name: Configure L2VNI
-         nxos_interface:
+         cisco.nxos.nxos_interface:
            interface: vlan&quot;{{ item.vlan_id }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
        - name: Assign interface to Tenant VRF
-         nxos_vrf_interface:
+         cisco.nxos.nxos_vrf_interface:
            vrf: Tenant-1
            interface: &quot;vlan{{ item.vlan_id }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items:
          - &quot;{{ L2VNI }}&quot;
        - name: Configure SVI IP
-         nxos_ip_interface:
-           interface: &quot;vlan{{ item.vlan_id }}&quot;
-           addr: &quot;{{ item.ip_add }}&quot;
-           mask: &quot;{{ item.mask }}&quot;
-           provider: &quot;{{ nxos_provider }}&quot;
+         cisco.nxos.nxos_l3_interfaces:
+           config:
+             - name: &quot;vlan{{ item.vlan_id }}&quot;
+               ipv4:
+                 - address: &quot;{{ item.ip_add }}/{{ item.mask }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
        - name: Configure L2VNI SVI
-         nxos_interface:
+         cisco.nxos.nxos_interface:
            interface: vlan&quot;{{ item.vlan_id }}&quot;
            fabric_forwarding_anycast_gateway: true
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
        - name: Configure L2VNI to VTEP
-         nxos_vxlan_vtep_vni:
+         cisco.nxos.nxos_vxlan_vtep_vni:
             interface: nve1
             vni: &quot;{{ item.vni }}&quot;
             multicast_group: &quot;{{ item.mcast }}&quot;
-            provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
        - name: Configure L2VNI RD/RT
-         nxos_evpn_vni:
+         cisco.nxos.nxos_evpn_vni:
           vni: &quot;{{ item.vni }}&quot;
           route_distinguisher: auto
           route_target_both: auto
-          provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
+
 </code></pre>
 
 <p>this is shown in below screenshot:</p>

@@ -662,9 +662,9 @@ nxos_pim_interface  Manage PIM interface configuration</p>
          with_items: &quot;{{ L2VNI }}&quot;
          tags: vxlan
        - name: Configure L3VNI
-         cisco.nxos.nxos_interfaces:
-           config:
-             - name: vlan&quot;{{ L3VNI[0].vlan_id }}&quot;
+         cisco.nxos.nxos_interface:
+           name: vlan&quot;{{ L3VNI[0].vlan_id }}&quot;
+           admin_state: up
          tags: vxlan
        - name: Assign interface to Tenant VRF
          cisco.nxos.nxos_vrf_interface:
@@ -768,15 +768,15 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </thead>
 <tbody>
 <tr>
-<td>nxos_bgp_af</td>
+<td>cisco.nxos.nxos_bgp_af</td>
 <td>Manage BGP address-famility config</td>
 </tr>
 <tr>
-<td>nxos_bgp_neighbor_af</td>
+<td>cisco.nxos.nxos_bgp_neighbor_af</td>
 <td>Manage BGP neighbor address-famility config</td>
 </tr>
 <tr>
-<td>nxos_evpn_vni</td>
+<td>cisco.nxos.nxos_evpn_vni</td>
 <td>Manage Cisco EVPN VXLAN Network Identifier</td>
 </tr>
 </tbody>
@@ -788,21 +788,19 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code class="YAML"># task to configure BGP EVPN
        - name: Configure BGP EVPN
-         nxos_bgp_af:
+         cisco.nxos.nxos_bgp_af:
            asn: &quot;{{ asn }}&quot;
            afi: l2vpn
            safi: evpn
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: evpn
        - name: Configure iBGP neighbor EVPN AF
-         nxos_bgp_neighbor_af:
+         cisco.nxos.nxos_bgp_neighbor_af:
            asn: &quot;{{ asn }}&quot;
            neighbor: &quot;{{ item.neighbor }}&quot;
            afi: l2vpn
            safi: evpn
            route_reflector_client: &quot;true&quot;
            send_community: both
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ bgp_neighbors }}&quot;
          tags: evpn
 </code></pre>
@@ -816,28 +814,25 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code class="YAML">#task to configure BGP EVPN
        - name: Configure BGP EVPN
-         nxos_bgp_af:
+         cisco.nxos.nxos_bgp_af:
            asn: &quot;{{ asn }}&quot;
            afi: l2vpn
            safi: evpn
-           provider: &quot;{{ nxos_provider }}&quot;
          tags: evpn
        - name: Configure iBGP neighbor EVPN AF
-         nxos_bgp_neighbor_af:
+         cisco.nxos.nxos_bgp_neighbor_af:
            asn: &quot;{{ asn }}&quot;
            neighbor: &quot;{{ item.neighbor }}&quot;
            afi: l2vpn
            safi: evpn
            send_community: both
-           provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ bgp_neighbors }}&quot;
          tags: evpn
        - name: Configure L2VNI RD/RT
-         nxos_evpn_vni:
+         cisco.nxos.nxos_evpn_vni:
           vni: &quot;{{ item.vni }}&quot;
           route_distinguisher: auto
           route_target_both: auto
-          provider: &quot;{{ nxos_provider }}&quot;
          with_items: &quot;{{ L2VNI }}&quot;
          tags: evpn
 </code></pre>
@@ -941,7 +936,7 @@ PING 172.21.141.11 (172.21.141.11) 56(84) bytes of data.
 </code></pre>
 
 <hr />
-<p><strong>Congratulation! You have successfuly built VXLAN fabric using ansible + Jinja2 template and ansible + NXOS modules.</strong></p>
+<p><strong>Congratulation! You have successfully built VXLAN fabric using ansible + Jinja2 template and ansible + NXOS modules.</strong></p>
               
             </div>
           </div>
