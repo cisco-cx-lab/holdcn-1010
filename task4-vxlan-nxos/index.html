@@ -148,9 +148,7 @@
                     
 
 
-  
-
-<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Cisco Live 2021 HOLDCN-1010" class="md-nav__button md-logo" aria-label="Cisco Live 2021 HOLDCN-1010" data-md-component="logo">
       
@@ -523,6 +521,235 @@
                 </div>
               </div>
             
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-new-playbook" class="md-nav__link">
+    Step 1: Create new playbook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-new-roles-for-spine-leaf" class="md-nav__link">
+    Step 2: Create new roles for Spine &amp; Leaf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-build-playbook-for-spine-role-tasks" class="md-nav__link">
+    Step 3: Build playbook for Spine role - tasks:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-build-playbook-for-spine-role-vars" class="md-nav__link">
+    Step 4:  Build playbook for Spine role - vars
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-build-playbook-for-leaf-role-tasks" class="md-nav__link">
+    Step 5:  Build playbook for leaf role - tasks:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-build-playbook-for-leaf-role-vars" class="md-nav__link">
+    Step 6: Build playbook for leaf role - vars
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-execute-playbook" class="md-nav__link">
+    Step 7: Execute playbook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-configure-multicast-using-ansible-nxos" class="md-nav__link">
+    Step 8: Configure Multicast using Ansible NXOS
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Configure Multicast using Ansible NXOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edit-playbook-for-spine-role" class="md-nav__link">
+    Edit playbook for spine role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-variable-file-for-spine-role" class="md-nav__link">
+    Edit variable file for Spine role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-playbook-for-leaf-role" class="md-nav__link">
+    Edit playbook for leaf role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-variable-file-for-leaf-role" class="md-nav__link">
+    Edit variable file for leaf role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-playbook-and-verify-configuration-changes" class="md-nav__link">
+    Run the playbook and verify configuration changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-configure-vxlan-using-ansible" class="md-nav__link">
+    Step 9: Configure VXLAN using Ansible
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 9: Configure VXLAN using Ansible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edit-playbook-for-spine-role_1" class="md-nav__link">
+    Edit playbook for spine role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-variable-file-for-spine-role_1" class="md-nav__link">
+    Edit variable file for Spine role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-playbook-for-leaf-role_1" class="md-nav__link">
+    Edit playbook for leaf role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-variable-file-for-leaf-role_1" class="md-nav__link">
+    Edit variable file for leaf role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-playbook-and-verify-configuration-changes_1" class="md-nav__link">
+    Run the playbook and verify configuration changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-10-configure-evpn-using-ansible" class="md-nav__link">
+    Step 10: Configure EVPN using Ansible
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 10: Configure EVPN using Ansible">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edit-playbook-for-spine-role_2" class="md-nav__link">
+    Edit playbook for spine role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-variable-file-for-spine-role_2" class="md-nav__link">
+    Edit variable file for Spine role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-playbook-for-leaf-role_2" class="md-nav__link">
+    Edit playbook for leaf role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-variable-file-for-leaf-role_2" class="md-nav__link">
+    Edit variable file for leaf role
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-playbook-and-verify-configuration-changes_2" class="md-nav__link">
+    Run the playbook and verify configuration changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-11-run-nxos_fabric-playbook" class="md-nav__link">
+    Step 11: Run nxos_fabric playbook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-12-verify-end-to-end-ip-connectivity" class="md-nav__link">
+    Step 12: Verify end-to-end IP connectivity
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
             
           
           <div class="md-content" data-md-component="content">
@@ -1420,7 +1647,7 @@ PING 172.21.141.11 (172.21.141.11) 56(84) bytes of data.
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "toc.integrate", "navigation.expand"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.a1c7c35e.min.js"></script>
