@@ -560,6 +560,7 @@
 </code></pre>
 <p>Below screenshot shows the execution of above command:</p>
 <p><img alt="" src="../pic/1-8-1-version-new.png" /></p>
+<p><strong>Note:</strong>: Your output might show different version than the installed version. This is due to the separation of ansible-base (ansible-core) and community package starting from version 2.10. The above command shows ansible-base version. You can find more detail explanation from Ansible documentation page. https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html</p>
 <h4 id="step-9-create-ansible-inventory">Step 9: Create Ansible Inventory</h4>
 <p>Now, we are going to create inventory, host variables and Configuration file. This is important as Ansible works  against multiple systems in the system by selecting portions of systems listed in Ansible inventory. Similarly, configuration settings in Ansible are adjustable via configuration file.</p>
 <p>Create folder named EVPN-Ansible as working environment and verify that it’s empty:</p>
@@ -755,6 +756,8 @@ A role directory structure contains several directories of defaults, vars, files
 <pre><code>[root@rhel7-tools host_vars]# cd /root/EVPN-Ansible
 [root@rhel7-tools EVPN-Ansible]# mkdir roles
 </code></pre>
+<p>Below screenshot shows the execution of above commands:</p>
+<p><img alt="" src="../pic/1-10-1.png" /></p>
 <p>This will be used in the subsequent tasks in this lab.</p>
                 
               

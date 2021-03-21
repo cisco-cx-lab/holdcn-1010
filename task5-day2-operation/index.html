@@ -992,17 +992,8 @@ copy run start
 end
 </code></pre>
 
-<pre><code>Here is a log of execution of above command:
-</code></pre>
-<pre><code>Leaf-4# conf t
-Enter configuration commands, one per line. End with CNTL/Z.
-Leaf-4(config)# no router bgp 65000
-Leaf-4(config)# copy run start
-[########################################] 100%
-Leaf-4(config)# end
-Leaf-4#
-</code></pre>
-
+<p>Below screenshot shows the output of above command:</p>
+<p><img alt="" src="../pic/5-3-0.png" /></p>
 <ul>
 <li>On the Ansible server (via MTputty SSH session), run the playbook for configuration compliance check by executing <code>ansible-playbook --diff verify_config.yml</code> as shown below below:</li>
 </ul>
@@ -1066,7 +1057,7 @@ Leaf-4#
 <ul>
 <li>First we will creat a new role, and name it <strong>“vni_provision”</strong> under folder roles using <strong>ansible-galaxy</strong> using below commands on the Ansible node (using MTputty via SSH connection):</li>
 </ul>
-<pre><code>[root@rhel7-tools EVPN-Ansible]# cd roles/
+<pre><code>[root@rhel7-tools EVPN-Ansible]# cd /root/EVPN-Ansible/roles/
 [root@rhel7-tools roles]# ansible-galaxy init vni_provision
 </code></pre>
 
