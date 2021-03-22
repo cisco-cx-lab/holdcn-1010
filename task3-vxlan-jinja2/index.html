@@ -675,25 +675,30 @@
 <p><img alt="" src="../pic/3-5-0.png" /></p>
 <p><strong>NOTE: If the file does not appear on the ATOM, then go ahead and execute below 4 steps to get it sync.  If the <code>spine.j2</code> file appears in above folder then you can skip below 4 steps</strong>:</p>
 <ol>
-<li>On Ansible server (198.18.134.150) using your SSH session, change Directory to folder EVPN-Ansible using below command:</li>
-</ol>
-<pre><code>[root@rhel7-tools ~]# cd ~/EVPN-Ansible
+<li>
+<p>On Ansible server (198.18.134.150) using your SSH session, change Directory to folder EVPN-Ansible using below command:</p>
+<pre><code>~~~
+[root@rhel7-tools ~]# cd ~/EVPN-Ansible
+~~~
 </code></pre>
-
-<ol>
-<li>further, change Directory (cd) to folder roles/jinja2_spine/templates using below command:</li>
-</ol>
-<pre><code>[root@rhel7-tools EVPN-Ansible]# cd roles/jinja2_spine/templates
+</li>
+<li>
+<p>further, change Directory (cd) to folder roles/jinja2_spine/templates using below command:</p>
+<pre><code>~~~
+[root@rhel7-tools EVPN-Ansible]# cd roles/jinja2_spine/templates
+~~~
 </code></pre>
-
-<ol>
-<li>Type <code>touch spine.j2</code> as shown below:</li>
-</ol>
-<pre><code>[root@rhel7-tools templates]# touch spine.j2
+</li>
+<li>
+<p>Type <code>touch spine.j2</code> as shown below:</p>
+<pre><code>~~~
+[root@rhel7-tools templates]# touch spine.j2
+~~~
 </code></pre>
-
-<ol>
-<li>After entering the command, go back to ATOM,  <strong>right click</strong> on folder <code>EVPN-Ansible</code>, scroll to choose option <code>Remote Sync</code> option and choose <code>Download Folder</code> as shown below:</li>
+</li>
+<li>
+<p>After entering the command, go back to ATOM,  <strong>right click</strong> on folder <code>EVPN-Ansible</code>, scroll to choose option <code>Remote Sync</code> option and choose <code>Download Folder</code> as shown below:</p>
+</li>
 </ol>
 <p><img alt="" src="../pic/3-5-1.png" /></p>
 <p>Now that the file/folder appears properly on ATOM, go ahead and proceed with further steps:</p>
@@ -864,8 +869,7 @@
 </li>
 <li>
 <p>further, change Directory (cd) to folder roles/jinja2_leaf/templates using below command:</p>
-<pre><code>cd roles/jinja2_leaf/templates
-</code></pre>
+<p>cd roles/jinja2_leaf/templates</p>
 </li>
 <li>
 <p>Type <code>touch leaf.j2</code></p>
