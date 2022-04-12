@@ -8,36 +8,37 @@
       
       
       
-      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.1, mkdocs-material-7.0.6">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.9">
     
     
       
-        <title>Task 4 - Config switches using Ansible NXOS modules - Cisco Live 2021 HOLDCN-1010</title>
+        <title>Task 4 - Config switches using Ansible NXOS modules - Cisco Live 2022 LTRDCN-2765</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2c0c5eaf.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.120efc48.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.7fa14f5b.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.9647289d.min.css">
         
       
     
     
     
       
+        
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
-    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+
     
     
   </head>
@@ -49,8 +50,8 @@
     
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
-      
   
+    
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -67,22 +68,25 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+    
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Cisco Live 2021 HOLDCN-1010" class="md-header__button md-logo" aria-label="Cisco Live 2021 HOLDCN-1010" data-md-component="logo">
+    <a href=".." title="Cisco Live 2022 LTRDCN-2765" class="md-header__button md-logo" aria-label="Cisco Live 2022 LTRDCN-2765" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Cisco Live 2021 HOLDCN-1010
+            Cisco Live 2022 LTRDCN-2765
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -94,26 +98,28 @@
         </div>
       </div>
     </div>
-    <div class="md-header__options">
-      
-    </div>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
-      
-<div class="md-search" data-md-component="search" role="dialog">
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -130,11 +136,14 @@
     
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -150,13 +159,13 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Cisco Live 2021 HOLDCN-1010" class="md-nav__button md-logo" aria-label="Cisco Live 2021 HOLDCN-1010" data-md-component="logo">
+    <a href=".." title="Cisco Live 2022 LTRDCN-2765" class="md-nav__button md-logo" aria-label="Cisco Live 2022 LTRDCN-2765" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    Cisco Live 2021 HOLDCN-1010
+    Cisco Live 2022 LTRDCN-2765
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -250,6 +259,7 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+      
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Task 4 - Config switches using Ansible NXOS modules
           <span class="md-nav__icon md-icon"></span>
@@ -260,7 +270,9 @@
       </a>
       
         
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
   
@@ -527,7 +539,9 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
   
@@ -756,10 +770,11 @@
             <article class="md-content__inner md-typeset">
               
                 
-                
-                  <h1>Task 4 - Config switches using Ansible NXOS modules</h1>
-                
-                <p>In this section, you will build remaining VXLAN fabric using Ansible NXOS modules.  We will configure BGP neighbors between spine and leaf switching by using Ansible NXOS modules. The following NXOS ansible modules are used:</p>
+
+
+  <h1>Task 4 - Config switches using Ansible NXOS modules</h1>
+
+<p>In this section, you will build remaining VXLAN fabric using Ansible NXOS modules.  We will configure BGP neighbors between spine and leaf switching by using Ansible NXOS modules. The following NXOS ansible modules are used:</p>
 <table>
 <thead>
 <tr>
@@ -801,7 +816,7 @@
 <p>In the <code>nxos_fabric.yml</code> enter the content as shown below:</p>
 </li>
 </ul>
-<pre><code class="YAML">---
+<pre><code class="language-YAML">---
 
 - hosts: spine
   connection: local
@@ -813,7 +828,6 @@
   roles:
     - leaf
 </code></pre>
-
 <p>Below screenshot shows the actual content:
 <img alt="" src="../pic/4-1-1.png" /></p>
 <ul>
@@ -843,7 +857,7 @@
 <hr />
 <p><font style=background-color:yellow><strong>Note: It is recommended to write your playbook and learn from mistakes, but file is also available in the local playbook folder if you prefer to reuse.</strong></font></p>
 <hr />
-<pre><code class="YAML">---
+<pre><code class="language-YAML">---
 # tasks file for spine
 #task to configure bgp neighbor to all leaf switches
        - name: Enable BGP
@@ -882,7 +896,6 @@
          with_items: &quot;{{ bgp_neighbors }}&quot;
          tags: bgp
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -910,7 +923,7 @@
 <ul>
 <li>Switch to <strong>ATOM</strong>, then open up the project folder <code>EVPN-Ansible</code> from the left pane and <strong>open</strong> <code>main.yml</code> file under “<strong>roles/spine/vars/</strong>” and enter below content:</li>
 </ul>
-<pre><code class="YAML">---
+<pre><code class="language-YAML">---
 # vars file for spine
   asn: 65000
 
@@ -919,7 +932,6 @@
   - { remote_as: 65000, neighbor: 192.168.0.10, update_source: Loopback0 }
   - { remote_as: 65000, neighbor: 192.168.0.11, update_source: Loopback0 }
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -929,7 +941,7 @@
 <ul>
 <li>On ATOM, open up the project folder <code>EVPN-Ansible</code> and edit <code>main.yml</code> file under <code>roles/leaf/tasks/</code> to include following:</li>
 </ul>
-<pre><code class="YAML">---
+<pre><code class="language-YAML">---
 # tasks file for leaf
 #task to configure bgp neighbor to all spine switches
        - name: Enable BGP
@@ -967,7 +979,6 @@
          with_items: &quot;{{ bgp_neighbors }}&quot;
          tags: bgp
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -977,7 +988,7 @@
 <ul>
 <li>Switch to <strong>ATOM</strong>, then open up the project folder <code>EVPN-Ansible</code> from the left pane and <strong>open</strong> <code>main.yml</code> file under “<strong>roles/leaf/vars/</strong>” and enter below content:</li>
 </ul>
-<pre><code class="YAML">---
+<pre><code class="language-YAML">---
 # vars file for leaf
   asn: 65000
 
@@ -986,7 +997,6 @@
   - { remote_as: 65000, neighbor: 192.168.0.7, update_source: Loopback0 }
 
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1008,7 +1018,6 @@
 </ul>
 <pre><code>show ip bgp summary
 </code></pre>
-
 <p>The output of above command providing the BGP neighbours info on Spine-1 and Leaf-3 is shown below:</p>
 <p><img alt="" src="../pic/4-3-3.png" /></p>
 <p><img alt="" src="../pic/4-3-4.png" /></p>
@@ -1059,7 +1068,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <hr />
 <p><font style=background-color:yellow>Note: It is recommended to write your playbook and learn from mistakes, but file is also available in the playbook folder if you prefer to reuse.</font></p>
 <hr />
-<pre><code class="YAML">#task to enable pim and configure anycast rp for underlay multicast
+<pre><code class="language-YAML">#task to enable pim and configure anycast rp for underlay multicast
        - name: Enable PIM
          cisco.nxos.nxos_feature:
            feature: pim
@@ -1101,7 +1110,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
             - &quot;ip pim anycast-rp {{ loopback1 }} {{ s2_loopback }}&quot;
          tags: multicast
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1109,7 +1117,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <ul>
 <li>Use <strong>“Atom”</strong> to edit the variables file for Spine i.e. <strong>“main.yml”</strong> file. Open up the project folder <strong>“EVPN-Ansible”</strong> and add the below content at the end of <strong>“main.yml”</strong> file under <strong>“roles/spine/vars/”</strong></li>
 </ul>
-<pre><code class="YAML">  L3_interfaces:
+<pre><code class="language-YAML">  L3_interfaces:
   - { interface: Ethernet1/1 }
   - { interface: Ethernet1/2 }
   - { interface: Ethernet1/3 }
@@ -1119,7 +1127,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
   s1_loopback: 192.168.0.6
   s2_loopback: 192.168.0.7
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1130,7 +1137,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <hr />
 <p><font style=background-color:yellow>Note: It is recommended to write your playbook and learn from mistakes, but file is also available in the playbook folder if you prefer to reuse.</font></p>
 <hr />
-<pre><code class="YAML">#task to enable PIM for underlay multicast
+<pre><code class="language-YAML">#task to enable PIM for underlay multicast
        - name: Enable PIM
          cisco.nxos.nxos_feature:
            feature: pim
@@ -1147,7 +1154,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
            rp_address: &quot;{{ rp_address }}&quot;
          tags: multicast
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1155,14 +1161,13 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <ul>
 <li>Use <strong>“Atom”</strong> to edit the main.yml file. Open up the project folder <strong>“EVPN-Ansible”</strong> and add below content at the end of <strong>“main.yml”</strong> file under <strong>“roles/leaf/vars/”</strong>.  On Atom, Make sure to click <strong>File-&gt;Save</strong> after entering the below data in this file so it is pushed to Ansible server:</li>
 </ul>
-<pre><code class="YAML">  rp_address: 192.168.0.100
+<pre><code class="language-YAML">  rp_address: 192.168.0.100
   L3_interfaces:
   - { interface: Ethernet1/1 }
   - { interface: Ethernet1/2 }
   - { interface: loopback0 }
   - { interface: loopback1 }
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1172,7 +1177,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook nxos_fabric.yml --tags &quot;multicast&quot;
 </code></pre>
-
 <p>Below screenshots shows the output of above command:
 <img alt="" src="../pic/4-4-1.png" />
 <img alt="" src="../pic/4-4-2.png" /></p>
@@ -1181,7 +1185,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code>show ip pim neighbor
 </code></pre>
-
 <ul>
 <li>Below screenshot shows the output of above command (<code>show ip pim neighbor</code>) from Spine-1:</li>
 </ul>
@@ -1236,7 +1239,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <ul>
 <li>Use <strong>“Atom”</strong> to edit the “<strong>main.yml</strong>” file. Open up the project folder <strong>“EVPN-Ansible”</strong> and open “<strong>main.yml</strong>” file under <strong>“roles/spine/tasks/”</strong> and enter the below content (you may copy &amp; paste with correct spaces) at the end of the file:</li>
 </ul>
-<pre><code class="YAML">#task to configure vxlan fabric
+<pre><code class="language-YAML">#task to configure vxlan fabric
        - name: Enable VXLAN Feature
          cisco.nxos.nxos_feature:
             feature: &quot;{{item}}&quot;
@@ -1251,7 +1254,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
            nv_overlay_evpn: true
          tags: vxlan
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1261,7 +1263,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <ul>
 <li>use <strong>“Atom”</strong> to edit the <strong>main.yml</strong> file. Open up the project folder <strong>“EVPN-Ansible”</strong> and open “<strong>main.yml</strong>” file under <strong>“roles/leaf/tasks/”</strong>.  Add the below content in the file at the end of the file (i.e., in addition to existing content), and then make sure to click <strong>“File”-&gt;“Save”</strong> on Atom, so that the updated file is pushed to Ansible server.</li>
 </ul>
-<pre><code class="YAML">#task to configure VXLAN fabric
+<pre><code class="language-YAML">#task to configure VXLAN fabric
        - name: Enable VXLAN Feature
          cisco.nxos.nxos_feature:
            feature: &quot;{{ item }}&quot;
@@ -1359,7 +1361,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
             assoc_vrf: true
          tags: vxlan
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1367,13 +1368,12 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <ul>
 <li>Use <strong>“Atom”</strong> to edit the <strong>main.yml</strong> file. Open up the project folder <strong>“EVPN-Ansible”</strong> and open "<strong>main.yml</strong>"" file under <strong>“roles/leaf/vars/”</strong>.  Add the below content in the file at the end of the file (i.e., in addition to existing content), and then make sure to click <strong>“File”-&gt;“Save”</strong> on Atom, so that the updated file is pushed to Ansible server.</li>
 </ul>
-<pre><code class="YAML">  L2VNI:
+<pre><code class="language-YAML">  L2VNI:
   - { vlan_id: 140, vni: 50140, ip_add: 172.21.140.1, mask: 24, vlan_name: L2-VNI-140-Tenant1, mcast: 239.0.0.140 }
   - { vlan_id: 141, vni: 50141, ip_add: 172.21.141.1, mask: 24, vlan_name: L2-VNI-141-Tenant1, mcast: 239.0.0.141 }
   L3VNI:
   - { vlan_id: 999, vlan_name: L3-VNI-999-Tenant1, vni: 50999 }
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1383,7 +1383,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook nxos_fabric.yml --tags &quot;vxlan&quot;
 </code></pre>
-
 <ul>
 <li>
 <p>Below screenshot show partial output of above command:</p>
@@ -1396,7 +1395,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code>show nve vni
 </code></pre>
-
 <p>Below screenshot shows the output of above command from Leaf-3:</p>
 <p><img alt="" src="../pic/4-5-2.png" /></p>
 <hr />
@@ -1429,7 +1427,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <li>Use <strong>“Atom”</strong> to edit the <strong>main.yml</strong> file. Open up the project folder <strong>“EVPN-Ansible”</strong> and open “<strong>main.yml</strong>” file under <strong>“roles/spine/tasks/”</strong>.  Add the below content in the file in addition to existing content.</li>
 <li>Then make sure to click <strong>“File”-&gt;“Save”</strong> on Atom, so that the updated file is pushed to Ansible server.</li>
 </ul>
-<pre><code class="YAML"># task to configure BGP EVPN
+<pre><code class="language-YAML"># task to configure BGP EVPN
        - name: Configure BGP EVPN
          cisco.nxos.nxos_bgp_af:
            asn: &quot;{{ asn }}&quot;
@@ -1447,7 +1445,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
          with_items: &quot;{{ bgp_neighbors }}&quot;
          tags: evpn
 </code></pre>
-
 <h5 id="edit-variable-file-for-spine-role_2">Edit variable file for Spine role</h5>
 <p>No new variables required for Spine</p>
 <h5 id="edit-playbook-for-leaf-role_2">Edit playbook for leaf role</h5>
@@ -1455,7 +1452,7 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 <li>use <strong>“Atom”</strong> to edit the “<strong>main.yml</strong>” file. Open up the project folder <strong>“EVPN-Ansible”</strong> and open “<strong>main.yml</strong>” file under <strong>“roles/leaf/tasks/”</strong>.  Add the below content in the file in addition to existing content.</li>
 <li>Then make sure to click <strong>“File”-&gt;“Save”</strong> on Atom, so that the updated file is pushed to Ansible server.</li>
 </ul>
-<pre><code class="YAML">#task to configure BGP EVPN
+<pre><code class="language-YAML">#task to configure BGP EVPN
        - name: Configure BGP EVPN
          cisco.nxos.nxos_bgp_af:
            asn: &quot;{{ asn }}&quot;
@@ -1479,7 +1476,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
          with_items: &quot;{{ L2VNI }}&quot;
          tags: evpn
 </code></pre>
-
 <ul>
 <li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package.</li>
 </ul>
@@ -1491,7 +1487,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook nxos_fabric.yml --tags &quot;evpn&quot;
 </code></pre>
-
 <p>Below screenshot shows the output of above playbook:</p>
 <p><img alt="" src="../pic/4-6-1.png" /></p>
 <ul>
@@ -1499,7 +1494,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code>show bgp l2vpn evpn summary
 </code></pre>
-
 <p>Below screenshot shows the output of above command from leaf-3 switch.  As expected it shows the spine-1 and spine-2 as neighbors:</p>
 <p><img alt="" src="../pic/4-6-2.png" /></p>
 <hr />
@@ -1509,7 +1503,6 @@ nxos_pim_interface  Manage PIM interface configuration</p>
 </ul>
 <pre><code>[root@rhel7-tools EVPN-Ansible]# ansible-playbook nxos_fabric.yml
 </code></pre>
-
 <hr />
 <h3 id="step-12-verify-end-to-end-ip-connectivity">Step 12: Verify end-to-end IP connectivity</h3>
 <p>Now Let’s verify the VXLAN bridging and VXLAN routing from servers that are pre-configured in following VLANs and IPs</p>
@@ -1558,7 +1551,6 @@ PING 172.21.140.1 (172.21.140.1) 56(84) bytes of data.
 64 bytes from 172.21.140.1: icmp_seq=2 ttl=255 time=15.7 ms
 64 bytes from 172.21.140.1: icmp_seq=3 ttl=255 time=4.11 ms
 </code></pre>
-
 <ul>
 <li>Next, <strong>Ping</strong> server 3 and server 4 from server-1 (in same VLAN and inter-VLAN respectively) by using <code>ping 172.21.140.11</code> and <code>ping 172.21.141.11</code> commands as shown below:</li>
 </ul>
@@ -1577,29 +1569,29 @@ PING 172.21.141.11 (172.21.141.11) 56(84) bytes of data.
 64 bytes from 172.21.141.11: icmp_seq=995 ttl=62 time=16.1 ms
 64 bytes from 172.21.141.11: icmp_seq=996 ttl=62 time=18.0 ms
 </code></pre>
-
 <hr />
 <p><strong>Congratulation! You have successfully built VXLAN fabric using ansible + Jinja2 template and ansible + NXOS modules.</strong></p>
-                
-              
-              
-                
-
 
               
             </article>
           </div>
         </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../task3-vxlan-jinja2/" class="md-footer__link md-footer__link--prev" rel="prev">
+        
+        <a href="../task3-vxlan-jinja2/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Task 3 - Use of Jinja2 templates with Ansible Playbook" rel="prev">
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
@@ -1612,7 +1604,8 @@ PING 172.21.141.11 (172.21.141.11) 56(84) bytes of data.
         </a>
       
       
-        <a href="../task5-day2-operation/" class="md-footer__link md-footer__link--next" rel="next">
+        
+        <a href="../task5-day2-operation/" class="md-footer__link md-footer__link--next" aria-label="Next: Task 5 - Day 2 Operations" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
@@ -1622,7 +1615,7 @@ PING 172.21.141.11 (172.21.141.11) 56(84) bytes of data.
             </div>
           </div>
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
           </div>
         </a>
       
@@ -1630,14 +1623,15 @@ PING 172.21.141.11 (172.21.141.11) 56(84) bytes of data.
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
-        
-      </div>
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
     </div>
   </div>
@@ -1647,10 +1641,10 @@ PING 172.21.141.11 (172.21.141.11) 56(84) bytes of data.
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.a1c7c35e.min.js"></script>
+      <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>
       
     
   </body>
